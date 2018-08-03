@@ -1,17 +1,4 @@
-/* This file is part of Greta.
- * Greta is free software: you can redistribute it and / or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-* 
-* Greta is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with Greta.If not, see <http://www.gnu.org/licenses/>.
-*//*
+/*
  * This file is part of VIB (Virtual Interactive Behaviour).
  */
 
@@ -65,10 +52,10 @@ public class GazeSignal extends ParametricSignal implements SignalTargetable{
         end = new TimeMarker("end");
         timeMarkers.add(end);
 
-        origin=CharacterManager.currentCharacterId;
-        target="";
-        offsetDirection=GazeDirection.FRONT;
-        offsetAngle=0.0;
+        origin = CharacterManager.currentCharacterId;
+        target = "";
+        offsetDirection = GazeDirection.FRONT;
+        offsetAngle = 0.0;
     }
 
     public boolean isGazeShift() {
@@ -147,7 +134,7 @@ public class GazeSignal extends ParametricSignal implements SignalTargetable{
                 return ;
             }
             //TODO : change depending on influence ?
-            if(influence==Influence.EYES || influence == Influence.HEAD) {
+            if(influence==Influence.EYES || influence == Influence.HEAD || influence == Influence.SHOULDER || influence == Influence.TORSO ) {
                 if(!ready.isConcretized() && !relax.isConcretized())
                 {
                     double totalTime = this.end.getValue() - this.start.getValue();
@@ -182,10 +169,10 @@ public class GazeSignal extends ParametricSignal implements SignalTargetable{
             if(!ready.isConcretized())
             {
                 //TODO : change depending on influence ?
-                if(influence==Influence.TORSO ) {
+                if(influence==Influence.TORSO || influence==Influence.SHOULDER  ) {
                     ready.setValue(start.getValue()+1.5);
                 }
-                else if( influence == Influence.HEAD) {
+                else if( influence == Influence.HEAD ) {
                     ready.setValue(start.getValue()+0.75);
                 }
                 else  if(influence==Influence.EYES) {

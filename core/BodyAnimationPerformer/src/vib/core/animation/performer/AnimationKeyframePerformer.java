@@ -1,17 +1,4 @@
-/* This file is part of Greta.
- * Greta is free software: you can redistribute it and / or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-* 
-* Greta is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with Greta.If not, see <http://www.gnu.org/licenses/>.
-*//*
+/*
  * This file is part of VIB (Virtual Interactive Behaviour).
  */
 package vib.core.animation.performer;
@@ -151,6 +138,8 @@ public class AnimationKeyframePerformer implements KeyframePerformer, BAPFramesE
         LinkedList<ExpressiveFrame> _head = new LinkedList<ExpressiveFrame>();
         LinkedList<ExpressiveFrame> _leftShoulder = new LinkedList<ExpressiveFrame>();
         LinkedList<ExpressiveFrame> _rightShoulder = new LinkedList<ExpressiveFrame>();
+        LinkedList<ExpressiveFrame> _bothShoulder = new LinkedList<ExpressiveFrame>();
+        
         double previousT_left = -1;
         double previousT_right = -1;
         double previousT_torse = -1;
@@ -214,6 +203,15 @@ public class AnimationKeyframePerformer implements KeyframePerformer, BAPFramesE
                         previousT_rightShoulder = keyframe.getOffset();
                     }
                     _rightShoulder.add(_symbolicConverter.getShoulder(keyframe));
+                }else {
+                    if (Math.abs(previousT_rightShoulder - keyframe.getOffset()) < _timeThreasure) {
+                        continue;
+                    } else {
+                        previousT_rightShoulder = keyframe.getOffset();
+                    }
+                    _leftShoulder.add(_symbolicConverter.getShoulder(keyframe));
+                    _rightShoulder.add(_symbolicConverter.getShoulder(keyframe));
+                    
                 }
             } else {
                 //System.out.println("IKKeyFramePerformer: Keyframe type error : "+kf.getClass().getSimpleName());
@@ -258,7 +256,7 @@ public class AnimationKeyframePerformer implements KeyframePerformer, BAPFramesE
 //        for(ExpressiveFrame arm : _right){
 //            System.out.println(((Arm)arm).getTime() + " "+((Arm)arm).getTarget());
 //        }
-        sendByFrame(start, end, _left, _right, _torse, _head, _leftShoulder, _rightShoulder, requestId, mode);
+        sendByFrame(start, end, _left, _right, _torse, _head, _leftShoulder, _rightShoulder, _bothShoulder, requestId, mode);
     }
 
     void applyPropagation(Arm armprevious, Arm arm) {
@@ -494,6 +492,7 @@ public class AnimationKeyframePerformer implements KeyframePerformer, BAPFramesE
             LinkedList<ExpressiveFrame> head,
             LinkedList<ExpressiveFrame> leftShoulder,
             LinkedList<ExpressiveFrame> rightShoulder,
+            LinkedList<ExpressiveFrame> bothShoulder,
             ID requestId,
             Mode mode) {
 
@@ -504,6 +503,7 @@ public class AnimationKeyframePerformer implements KeyframePerformer, BAPFramesE
         ExpressiveFrame head1 = null;//head.poll();
         ExpressiveFrame ls1 = null;//leftShoulder.poll();
         ExpressiveFrame rs1 = null;//rightShoulder.poll();
+        ExpressiveFrame bs1 = null;//bothShoulder.poll();
 
         List<BAPFrame> bapFrames = new ArrayList<BAPFrame>();
         for (double i = start; i <= end + 0.04; i = i + diff) {
@@ -515,6 +515,7 @@ public class AnimationKeyframePerformer implements KeyframePerformer, BAPFramesE
             head1 = fillFrame2(i, head, head1, f);
             ls1 = fillFrame2(i, leftShoulder, ls1, f);
             rs1 = fillFrame2(i, rightShoulder, rs1, f);
+            bs1 = fillFrame2(i, bothShoulder, rs1, f);
 
             BAPFrame bf = writeBAPFrame(i, f);
             bapFrames.add(bf);

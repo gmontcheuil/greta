@@ -1,17 +1,4 @@
-/* This file is part of Greta.
- * Greta is free software: you can redistribute it and / or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-* 
-* Greta is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with Greta.If not, see <http://www.gnu.org/licenses/>.
-*//*
+/*
  * This file is part of VIB (Virtual Interactive Behaviour).
  */
 package vib.core.behaviorrealizer;
@@ -38,6 +25,7 @@ import vib.core.repositories.SignalFiller;
 import vib.core.signals.Signal;
 import vib.core.signals.SignalPerformer;
 import vib.core.signals.gesture.PointingSignal;
+import vib.core.util.IniManager;
 import vib.core.util.Mode;
 import vib.core.util.enums.CompositionType;
 import vib.core.util.environment.Environment;
@@ -65,10 +53,11 @@ public class Realizer extends CallbackSender implements SignalPerformer, Keyfram
     private FaceKeyframeGenerator faceGenerator;
     private GestureKeyframeGenerator gestureGenerator;
     private Comparator<Keyframe> keyframeComparator;
-    private Environment environment;
+    private Environment environment =  new Environment(IniManager.getGlobals().getValueString("ENVIRONMENT"));
     private double lastKeyFrameTime;
 
     public Realizer() {
+        
         keyframePerformers = new ArrayList<KeyframePerformer>();
         generators = new ArrayList<KeyframeGenerator>();
 
@@ -117,7 +106,7 @@ public class Realizer extends CallbackSender implements SignalPerformer, Keyfram
 
         for (Signal signal : list) {
             for (KeyframeGenerator generator : generators) {
-                if (generator.accept(signal)) {
+                 if (generator.accept(signal)) {
                     break;
                 }
             }
@@ -127,20 +116,22 @@ public class Realizer extends CallbackSender implements SignalPerformer, Keyfram
 
 
         // Step 2: Schedule signals that the computed signal is relative to the previous and the next signals
-        // The result of this step is: (i) which phases are realized in each signal; (ii) when these phases are realized (abs time for each keyframe)
+        // The result of this step is: 
+        //              (i) which phases are realized in each signal; 
+        //              (ii) when these phases are realized (abs time for each keyframe)
         // Step 3: create all key frames
 
         // Gaze keyframes for other modalities than eyes are generated before the others
         // and act as "shifts"
-        gazeGenerator.generateBodyKeyframes(keyframes);
+        gazeGenerator.generateBodyKeyframes(keyframes, environment);
 
         for (KeyframeGenerator generator : generators) {
-            keyframes.addAll(generator.generateKeyframes());
+            keyframes.addAll(generator.generateKeyframes()); // 17
         }
         Collections.sort(keyframes, keyframeComparator);
 
         // Gaze keyframes for the eyes are generated last
-        gazeGenerator.generateEyesKeyframes(keyframes);
+        gazeGenerator.generateEyesKeyframes(keyframes, environment);
 
         faceGenerator.findExistingAU(keyframes);
         keyframes.addAll(faceGenerator.generateKeyframes());

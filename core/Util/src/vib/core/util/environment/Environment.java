@@ -1,17 +1,4 @@
-/* This file is part of Greta.
- * Greta is free software: you can redistribute it and / or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-* 
-* Greta is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with Greta.If not, see <http://www.gnu.org/licenses/>.
-*//*
+/*
  * This file is part of VIB (Virtual Interactive Behaviour).
  */
 package vib.core.util.environment;
@@ -203,7 +190,7 @@ public class Environment {
 
     public Vec3d getRelativeTargetVector(Vec3d target, Vec3d source, Quaternion sourceOrient) {
         //target look at vector
-        Vec3d lookAtVector = Vec3d.substraction(target, source);
+        Vec3d lookAtVector = Vec3d.substraction( target, source); //****************
 
         //relative position from the position to the target
         Vec3d relativeTargetPos = //Vec3f.substraction(source,
@@ -215,18 +202,38 @@ public class Environment {
         if (target == null || sourceOrient == null) {
             return new Vec3d();
         }
+
         Vec3d relativeTargetPos = getRelativeTargetVector(target, source, sourceOrient);
 
-        Vec3d onHorizontalPlane = new Vec3d(relativeTargetPos.x(), 0, relativeTargetPos.z());
+        Vec3d onHorizontalPlane = new Vec3d(relativeTargetPos.x(), 0.0 , relativeTargetPos.z());
         onHorizontalPlane.normalize();
-        double yawAngle = Math.acos(onHorizontalPlane.z()) * Math.signum(onHorizontalPlane.x());
-        relativeTargetPos.normalize();
-        double pitchAngle = Math.asin(relativeTargetPos.y());
+        
+        double yawAngle = 0.0;
+        
+        // according to the head orientation and the target position the rotation angle will be different
+        // the head it is supposed to be the center of the coordinate axis
+        // according to the quadrant in which is positioned the target the rotation anlge will be changed 
+        
+            if (onHorizontalPlane.x() >= 0.0 && onHorizontalPlane.z() > 0.0){
+                yawAngle = Math.toDegrees(Math.abs(Math.acos(onHorizontalPlane.z())));
+            }else if (onHorizontalPlane.x() >= 0 && onHorizontalPlane.z() < 0){
+                yawAngle = 90.0 + Math.toDegrees(Math.abs(Math.asin(onHorizontalPlane.z())));
+            }else if (onHorizontalPlane.x() <= 0 && onHorizontalPlane.z() < 0){
+                yawAngle = -90 -1*Math.toDegrees(Math.abs(Math.asin(onHorizontalPlane.z())));
+            }else if (onHorizontalPlane.x() <= 0 && onHorizontalPlane.z() > 0){
+                yawAngle =  -1*Math.toDegrees(Math.abs(Math.acos(onHorizontalPlane.z())));
+            }else{
+                yawAngle = 0.0;
+            }
 
+        relativeTargetPos.normalize();
+        
+        double pitchAngle = Math.asin(relativeTargetPos.y());
+        
         //theta (yaw, horizontal), phi (pitch, vertical), 0 (roll, "dutch angle")
         //if theta is positive, target to the left
         //if phi is positive, target is upwards
-        return new Vec3d(yawAngle, pitchAngle, 0.0f);
+        return new Vec3d(Math.toRadians(yawAngle), pitchAngle, 0.0f);
     }
 
     /* This should work for two eyes... However, best use symbolic notations
@@ -353,6 +360,7 @@ public class Environment {
     private void load(XMLTree xmlTree, TreeNode tn) {
 
         if (xmlTree.isNamed("node")) {
+            
             XMLTree positionXML = xmlTree.findNodeCalled("position");
             if (positionXML != null) {
                 float x = positionXML.hasAttribute("x") ? (float) positionXML.getAttributeNumber("x") : 0;

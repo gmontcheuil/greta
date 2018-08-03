@@ -1,17 +1,4 @@
-/* This file is part of Greta.
- * Greta is free software: you can redistribute it and / or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-* 
-* Greta is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with Greta.If not, see <http://www.gnu.org/licenses/>.
-*//*
+/*
  * This file is part of VIB (Virtual Interactive Behaviour).
  */
 package vib.core.util;
@@ -101,8 +88,8 @@ public class CharacterManager {
     }
 
     /**
-     * Set a charater as current charater and informs all {@code CharacterDependent} that the character has changed.<br/>
-     * If the character is unknown, this fuction tries to add it.
+     * Set a character as current character and informs all {@code CharacterDependent} that the character has changed.<br/>
+     * If the character is unknown, this function tries to add it.
      * @param name the name of the character to set
      * @see #addCharacter(java.lang.String)
      */

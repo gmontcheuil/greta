@@ -1,17 +1,4 @@
-/* This file is part of Greta.
- * Greta is free software: you can redistribute it and / or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-* 
-* Greta is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with Greta.If not, see <http://www.gnu.org/licenses/>.
-*//*
+/*
  * This file is part of VIB (Virtual Interactive Behaviour).
  */
 package vib.core.signals;
@@ -239,12 +226,12 @@ public abstract class SpineSignal extends ParametricSignal {
         computeSPC();
 
         // the first one is the start phase so its time is the start time
-        phases.get(0).setStartTime(start.getValue());
-        phases.get(0).setEndTime(start.getValue());
+        phases.get(0).setStartTime(this.getStartValue());
+        phases.get(0).setEndTime(this.getStartValue());
 
         // the last one is at the end
-        phases.get(phases.size() - 1).setStartTime(end.getValue());
-        phases.get(phases.size() - 1).setEndTime(end.getValue());
+        phases.get(phases.size() - 1).setStartTime(this.getEndValue());
+        phases.get(phases.size() - 1).setEndTime(this.getEndValue());
 
         if (phases.size() > 2) {
             // all the others are beetwen attack and sustain
@@ -345,7 +332,7 @@ public abstract class SpineSignal extends ParametricSignal {
     /**
      * Modifies the values of the positions of each phases according to the SPC
      * parameter.<br/>
-     * this fuction as no effect if it is called before the fill function or if
+     * this function as no effect if it is called before the fill function or if
      * values are already modified.
      */
     private void computeSPC() {

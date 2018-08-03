@@ -1,198 +1,269 @@
-17:05:05: Creating resource group General
-17:05:05: Creating resource group Internal
-17:05:05: Creating resource group Autodetect
-17:05:05: SceneManagerFactory for type 'DefaultSceneManager' registered.
-17:05:05: Registering ResourceManager for type Material
-17:05:05: Registering ResourceManager for type Mesh
-17:05:05: Registering ResourceManager for type Skeleton
-17:05:05: MovableObjectFactory for type 'ParticleSystem' registered.
-17:05:05: ArchiveFactory for archive type FileSystem registered.
-17:05:05: ArchiveFactory for archive type Zip registered.
-17:05:05: ArchiveFactory for archive type EmbeddedZip registered.
-17:05:05: DDS codec registering
-17:05:05: FreeImage version: 3.17.0
-17:05:05: This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details
-17:05:05: Supported formats: bmp,ico,jpg,jif,jpeg,jpe,jng,koa,iff,lbm,mng,pbm,pbm,pcd,pcx,pgm,pgm,png,ppm,ppm,ras,tga,targa,tif,tiff,wap,wbmp,wbm,psd,cut,xbm,xpm,gif,hdr,g3,sgi,rgb,rgba,bw,exr,j2k,j2c,jp2,pfm,pct,pict,pic,3fr,arw,bay,bmq,cap,cine,cr2,crw,cs1,dc2,dcr,drf,dsc,dng,erf,fff,ia,iiq,k25,kc2,kdc,mdc,mef,mos,mrw,nef,nrw,orf,pef,ptx,pxn,qtk,raf,raw,rdc,rw2,rwl,rwz,sr2,srf,srw,sti,x3f,webp,jxr,wdp,hdp
-17:05:05: ETC codec registering
-17:05:05: Registering ResourceManager for type HighLevelGpuProgram
-17:05:05: Registering ResourceManager for type Compositor
-17:05:05: MovableObjectFactory for type 'Entity' registered.
-17:05:05: MovableObjectFactory for type 'Light' registered.
-17:05:05: MovableObjectFactory for type 'BillboardSet' registered.
-17:05:05: MovableObjectFactory for type 'ManualObject' registered.
-17:05:05: MovableObjectFactory for type 'BillboardChain' registered.
-17:05:05: MovableObjectFactory for type 'RibbonTrail' registered.
-17:05:05: Loading library C:\Users\Brian\Desktop\GretaGit\bin\Player\Lib\External\Win64\DLL\RenderSystem_GL
-17:05:05: Installing plugin: GL RenderSystem
-17:05:05: OpenGL Rendering Subsystem created.
-17:05:05: Plugin successfully installed
-17:05:05: Loading library C:\Users\Brian\Desktop\GretaGit\bin\Player\Lib\External\Win64\DLL\Plugin_CgProgramManager
-17:05:05: Installing plugin: Cg Program Manager
-17:05:05: Plugin successfully installed
-17:05:05: Loading library C:\Users\Brian\Desktop\GretaGit\bin\Player\Lib\External\Win64\DLL\Plugin_OctreeSceneManager
-17:05:05: Installing plugin: Octree Scene Manager
-17:05:05: Plugin successfully installed
-17:05:05: *-*-* OGRE Initialising
-17:05:05: *-*-* Version 1.9.0 (Ghadamon)
-17:05:05: WARNING: camille/body.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
-17:05:07: WARNING: bone.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
-17:05:07: Can't assign material bone to SubEntity of Reference-bone-0.24082093735989563 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Hips-bone-0.42260166555505585 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine-bone-0.6754307059197395 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightUpLeg-bone-0.7403460821043336 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftUpLeg-bone-0.1773734171263175 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine1-bone-0.4851541999872353 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of SpineV-bone-0.29058745900689165 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of SpineV-bone-0.9209103219317224 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine2-bone-0.5458270346740011 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine1V-bone-0.1627158266693859 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine3-bone-0.8090001443454692 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine2V-bone-0.573963853050818 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine2V-bone-0.4832620803860286 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine4-bone-0.14038331522223946 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine4Right-bone-0.8030876824901418 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine4Left-bone-0.18618476314178556 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Neck-bone-0.7986220432241554 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightShoulder-bone-0.1011707288804693 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftShoulder-bone-0.9490887732605578 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Neck1-bone-0.624950613877525 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Head-bone-0.4882372627207019 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of HeadEnd-bone-0.5338572708846382 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightEye-bone-0.3791813637070951 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftEye-bone-0.4745587840975958 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LipUpperL-bone-0.20009130060511104 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Jaw-bone-0.9405744554656337 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of CheekR-bone-0.3387447242898841 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Nostrils-bone-0.5769495919439513 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LipUpperR-bone-0.6987406879005724 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LipCornerR-bone-0.7853495856079179 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LipCornerR-bone-0.49217813691948264 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LipCornerL-bone-0.976059830040317 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of BrowInnerR-bone-0.004868632950668417 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of BrowInnerL-bone-0.34220532623886835 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of BrowInnerL-bone-0.5458858976374129 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of BrowOuterR-bone-0.11044151746619024 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of BrowOuterL-bone-0.16177374981860637 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of BrowOuterL-bone-0.3250481882102353 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of UpperLidR-bone-0.33848370848472387 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of UpperLidL-bone-0.1505387253050452 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LowerLidR-bone-0.5156650056737347 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LowerLidR-bone-0.8114612552573734 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LowerLidL-bone-0.1859763689005539 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of CheekL-bone-0.8350231662484701 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of TongueR-bone-0.9874548736183526 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LipLowerR-bone-0.5086495510248759 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LipLowerL-bone-0.06360264574038321 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LipLowerL-bone-0.02484695742176235 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of TongueF-bone-0.060812221464837 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightArm-bone-0.8521690727569032 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightArmRoll-bone-0.15623814203693298 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightForeArm-bone-0.46417874807591 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightForeArmRoll-bone-0.11455765807409435 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHand-bone-0.7767034425237648 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFingerBase-bone-0.4156921645441618 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandThumb1-bone-0.9141473841763302 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandThumb1-bone-0.28705343994190713 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandRing1-bone-0.25303489885832353 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandIndex0-bone-0.02593017281932941 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandMiddle1-bone-0.9083250578788808 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandPinky0-bone-0.27606135196134474 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandThumb2-bone-0.8464892247263212 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandThumb3-bone-0.09619876716201226 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandThumb4-bone-0.8681393124068786 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandIndex1-bone-0.34961131359280617 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandIndex1-bone-0.619516854028188 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandIndex2-bone-0.47722511562486225 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandIndex3-bone-0.21191193635341943 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandIndex4-bone-0.3717446546368953 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandMiddle2-bone-0.6747053994716168 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandMiddle3-bone-0.32710839382936474 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandMiddle3-bone-0.3929795119838414 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandMiddle4-bone-0.8315654324470203 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandRing2-bone-0.5144014993095538 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandRing3-bone-0.9412158445540475 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandRing4-bone-0.5103591434125972 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandPinky1-bone-0.7048544010170429 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandPinky2-bone-0.17925305337464914 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandPinky3-bone-0.40434176831469915 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandPinky4-bone-0.24968021060654566 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightHandPinky4-bone-0.474569864667416 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftArm-bone-0.820364956029717 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftArmRoll-bone-0.8235824028914868 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftForeArm-bone-0.43261078137135855 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftForeArmRoll-bone-0.7898800392168175 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHand-bone-0.9583952110184957 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFingerBase-bone-0.2568258913830934 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandThumb1-bone-0.37976546150124946 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandPinky0-bone-0.0529424929490645 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandIndex0-bone-0.187800358771409 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandMiddle1-bone-0.9644508284067792 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandRing1-bone-0.625088810823987 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandThumb2-bone-0.6884654088847724 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandThumb3-bone-0.49557250033399747 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandThumb4-bone-0.28077310171866476 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandIndex1-bone-0.25896690730179384 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandIndex1-bone-0.9731570456747339 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandIndex2-bone-0.6811924646542624 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandIndex3-bone-0.2269753057195426 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandIndex4-bone-0.322826565148714 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandIndex4-bone-0.08048889985951202 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandMiddle2-bone-0.5881571322681594 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandMiddle3-bone-0.9686989189738526 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandMiddle4-bone-0.22974056316576497 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandRing2-bone-0.43076924704257813 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandRing3-bone-0.9873210503613485 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandRing4-bone-0.3591744897301078 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandPinky1-bone-0.14356396306082186 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandPinky2-bone-0.5273434470284553 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandPinky3-bone-0.9884259488702031 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandPinky3-bone-0.1027099320422672 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftHandPinky4-bone-0.6133855157474576 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine4RightEnd-bone-0.20680830549058338 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine4LeftEnd-bone-0.798574001913979 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine2VEnd-bone-0.5235536674066064 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of Spine1VEnd-bone-0.5305850196749519 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of SpineVEnd-bone-0.6344473590586236 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightUpLegRoll-bone-0.49503396820175394 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightLeg-bone-0.531592820563184 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightLegRoll-bone-0.6525458556067346 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFoot-bone-0.4356650230722733 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightToeBase-bone-0.23465169137667208 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootExtraFinger1-bone-0.13904371368872803 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootExtraFinger1-bone-0.5200796162682878 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootPinky1-bone-0.0700173698247254 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootIndex1-bone-0.983269768795966 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootMiddle1-bone-0.8012360633270509 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootRing1-bone-0.5848773878755851 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootExtraFinger2-bone-0.926507648250684 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootExtraFinger3-bone-0.41594355294605667 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootIndex2-bone-0.9297881735227401 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootIndex2-bone-0.7588103303710046 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootIndex3-bone-0.6471352454804534 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootMiddle2-bone-0.112373747191292 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootMiddle3-bone-0.15791538433718344 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootRing2-bone-0.3986598799679296 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootRing3-bone-0.8702568665238192 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootPinky2-bone-0.5518584600561945 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of RightFootPinky3-bone-0.32530980576765445 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftUpLegRoll-bone-0.9478655487681721 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftLeg-bone-0.9261389560186564 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftLegRoll-bone-0.698200688122254 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFoot-bone-0.6939740804150849 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftToeBase-bone-0.07113654761666932 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootExtraFinger1-bone-0.014151133304983632 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootIndex1-bone-0.15738971909654687 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootIndex1-bone-0.6065877347226203 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootRing1-bone-0.13828055165859343 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootMiddle1-bone-0.04436993053081528 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootPinky1-bone-0.9895077926516279 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootExtraFinger2-bone-0.6554297653923042 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootExtraFinger3-bone-0.34036178389268656 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootIndex2-bone-0.6359335572066899 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootIndex3-bone-0.2611964378372572 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootMiddle2-bone-0.4425764481578812 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootMiddle3-bone-0.5543072168600647 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootRing2-bone-0.730307427363229 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootRing3-bone-0.3361494175618822 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootPinky2-bone-0.18103860772104174 because this Material does not exist. Have you forgotten to define it in a .material script?
-17:05:07: Can't assign material bone to SubEntity of LeftFootPinky3-bone-0.3113384376090216 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:13: Creating resource group General
+12:11:13: Creating resource group Internal
+12:11:13: Creating resource group Autodetect
+12:11:13: SceneManagerFactory for type 'DefaultSceneManager' registered.
+12:11:13: Registering ResourceManager for type Material
+12:11:13: Registering ResourceManager for type Mesh
+12:11:13: Registering ResourceManager for type Skeleton
+12:11:13: MovableObjectFactory for type 'ParticleSystem' registered.
+12:11:13: ArchiveFactory for archive type FileSystem registered.
+12:11:13: ArchiveFactory for archive type Zip registered.
+12:11:13: ArchiveFactory for archive type EmbeddedZip registered.
+12:11:13: DDS codec registering
+12:11:13: FreeImage version: 3.17.0
+12:11:13: This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details
+12:11:13: Supported formats: bmp,ico,jpg,jif,jpeg,jpe,jng,koa,iff,lbm,mng,pbm,pbm,pcd,pcx,pgm,pgm,png,ppm,ppm,ras,tga,targa,tif,tiff,wap,wbmp,wbm,psd,cut,xbm,xpm,gif,hdr,g3,sgi,rgb,rgba,bw,exr,j2k,j2c,jp2,pfm,pct,pict,pic,3fr,arw,bay,bmq,cap,cine,cr2,crw,cs1,dc2,dcr,drf,dsc,dng,erf,fff,ia,iiq,k25,kc2,kdc,mdc,mef,mos,mrw,nef,nrw,orf,pef,ptx,pxn,qtk,raf,raw,rdc,rw2,rwl,rwz,sr2,srf,srw,sti,x3f,webp,jxr,wdp,hdp
+12:11:13: ETC codec registering
+12:11:13: Registering ResourceManager for type HighLevelGpuProgram
+12:11:13: Registering ResourceManager for type Compositor
+12:11:13: MovableObjectFactory for type 'Entity' registered.
+12:11:13: MovableObjectFactory for type 'Light' registered.
+12:11:13: MovableObjectFactory for type 'BillboardSet' registered.
+12:11:13: MovableObjectFactory for type 'ManualObject' registered.
+12:11:13: MovableObjectFactory for type 'BillboardChain' registered.
+12:11:13: MovableObjectFactory for type 'RibbonTrail' registered.
+12:11:13: Loading library D:\PROVA\greta-master\bin\Player\Lib\External\Win64\DLL\RenderSystem_GL
+12:11:13: Installing plugin: GL RenderSystem
+12:11:13: OpenGL Rendering Subsystem created.
+12:11:13: Plugin successfully installed
+12:11:13: Loading library D:\PROVA\greta-master\bin\Player\Lib\External\Win64\DLL\Plugin_CgProgramManager
+12:11:14: Installing plugin: Cg Program Manager
+12:11:14: Plugin successfully installed
+12:11:14: Loading library D:\PROVA\greta-master\bin\Player\Lib\External\Win64\DLL\Plugin_OctreeSceneManager
+12:11:14: Installing plugin: Octree Scene Manager
+12:11:14: Plugin successfully installed
+12:11:14: *-*-* OGRE Initialising
+12:11:14: *-*-* Version 1.9.0 (Ghadamon)
+12:11:15: WARNING: office/sol.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall0.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall1.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall2.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall3.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall4.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall5.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall6.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall7.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall8.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall9.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall10.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall11.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall12.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall13.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall14.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall15.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall16.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall17.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall18.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall19.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall20.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall21.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/wall22.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/window.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/bay_window.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/door.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/doorFrame.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/doubleDoorFrame.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/outDoor.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/outDoorFrame.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:15: WARNING: office/spotlight.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/table.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/chair1.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/couch.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/desk1.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/desk2.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/chair2.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/laptop.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/paper_stack.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/paper.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/cupboard_opened.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/cupboard_closed.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/rack.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/locker.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/screen.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/keyboard.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/mouse.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/halogene.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/plant01.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/plant02.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/wos/wos001.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/wos/wos002.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:16: WARNING: office/wos/wos003.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos004.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos005.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos006.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos007.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos008.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos009.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos010.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos011.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos012.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos013.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos014.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos015.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos016.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos017.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos018.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos019.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: office/wos/wos020.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: camille/body.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: WARNING: bone.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+12:11:17: Can't assign material bone to SubEntity of Reference-bone-0.24078885410616557 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Hips-bone-0.795223055096438 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine-bone-0.07069205059681216 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightUpLeg-bone-0.506210048416919 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftUpLeg-bone-0.928206316111038 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine1-bone-0.4685796035406945 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of SpineV-bone-0.616741241706013 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of SpineV-bone-0.3881429160843096 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine2-bone-0.5193326455006717 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine1V-bone-0.6086104942773034 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine3-bone-0.023700147628307633 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine2V-bone-0.7396414440836757 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine2V-bone-0.48319204703395124 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine4-bone-0.518181161601853 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine4Right-bone-0.7338545951764045 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine4Left-bone-0.3352443493213211 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Neck-bone-0.36804256050924034 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightShoulder-bone-0.0389248700642133 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftShoulder-bone-0.9958143737891395 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Neck1-bone-0.7772185034680885 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Head-bone-0.9515555507803133 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of HeadEnd-bone-0.46752143191390705 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightEye-bone-0.9351987276079496 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftEye-bone-0.5603291035333094 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LipUpperL-bone-0.041036107368345176 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Jaw-bone-0.8302459247771934 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of CheekR-bone-0.4140498762658157 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Nostrils-bone-0.09609123954340659 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LipUpperR-bone-0.2911460085900933 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LipCornerR-bone-0.8024383993948782 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LipCornerR-bone-0.6055182906420609 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LipCornerL-bone-0.9367674685688453 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of BrowInnerR-bone-0.34506834372046313 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of BrowInnerL-bone-0.5995858943258471 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of BrowInnerL-bone-0.9144659100876934 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of BrowOuterR-bone-0.8700405502723052 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of BrowOuterL-bone-0.3247789120236967 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of BrowOuterL-bone-0.23799585955234026 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of UpperLidR-bone-0.8599840652087101 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of UpperLidL-bone-0.5172042092181074 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LowerLidR-bone-0.19706615607939004 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LowerLidR-bone-0.6655802065887454 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LowerLidL-bone-0.8024255289177851 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of CheekL-bone-0.5608792429111749 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of TongueR-bone-0.8241681767614278 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LipLowerR-bone-0.3970578790024062 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LipLowerL-bone-0.9454008050122353 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LipLowerL-bone-0.7526757037837768 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of TongueF-bone-0.5713719012672099 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightArm-bone-0.452922460010622 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightArmRoll-bone-0.8722908307693329 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightForeArm-bone-0.40688688562554454 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightForeArmRoll-bone-0.18864555492730595 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHand-bone-0.5978112292259798 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFingerBase-bone-0.9871794082889455 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandThumb1-bone-0.17321392358270626 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandThumb1-bone-0.30935290598311693 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandRing1-bone-0.1014505664734221 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandIndex0-bone-0.6217108555114073 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandMiddle1-bone-0.4996845481148564 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandPinky0-bone-0.3163239408176224 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandThumb2-bone-0.504141628949102 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandThumb3-bone-0.24222930211779026 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandThumb4-bone-0.34634347340141736 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandIndex1-bone-0.5140327581454528 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandIndex1-bone-0.15878991804242637 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandIndex2-bone-0.14565787874641234 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandIndex3-bone-0.39095566058287023 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandIndex4-bone-0.5153610196283116 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandMiddle2-bone-0.642770379317574 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandMiddle3-bone-0.2679277319533555 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandMiddle3-bone-0.17987803586306295 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandMiddle4-bone-0.502400953222382 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandRing2-bone-0.4854599028499521 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandRing3-bone-0.24536835700714865 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandRing4-bone-0.4204194327315275 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandPinky1-bone-0.5529789078377889 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandPinky2-bone-0.04105727940675208 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandPinky3-bone-0.6673216842002585 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandPinky4-bone-0.8854221491562636 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightHandPinky4-bone-0.538056985654762 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftArm-bone-0.7513500544009466 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftArmRoll-bone-0.5373452001788874 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftForeArm-bone-0.20646289075120006 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftForeArmRoll-bone-0.18989665952241874 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHand-bone-0.48937672661166143 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftFingerBase-bone-0.3207192313557524 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandThumb1-bone-0.16898508576654814 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandPinky0-bone-0.8168451431128257 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandIndex0-bone-0.15247216701355804 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandMiddle1-bone-0.5975770673005635 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandRing1-bone-0.9908379218310874 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandThumb2-bone-0.7978314735257838 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandThumb3-bone-0.18197231576361783 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandThumb4-bone-0.263826079693677 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandIndex1-bone-0.4651126200997775 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandIndex1-bone-0.4281362501524255 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandIndex2-bone-0.22689443071099658 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandIndex3-bone-0.4261313691011225 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandIndex4-bone-0.7788293469097859 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandIndex4-bone-0.9077250808781469 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandMiddle2-bone-0.7401970575853432 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandMiddle3-bone-0.6225839078508898 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandMiddle4-bone-0.2809431322633156 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandRing2-bone-0.26441277547464936 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandRing3-bone-0.8987639853329988 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandRing4-bone-0.7672769490966098 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandPinky1-bone-0.4663007017624361 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandPinky2-bone-0.7863514975645624 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandPinky3-bone-0.8720448656068887 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandPinky3-bone-0.264866551960797 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of LeftHandPinky4-bone-0.9665943797867093 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine4RightEnd-bone-0.10181313957262428 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine4LeftEnd-bone-0.1293241930523683 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine2VEnd-bone-0.07029279132791177 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of Spine1VEnd-bone-0.39502344167066883 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of SpineVEnd-bone-0.38896215265145306 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightUpLegRoll-bone-0.1718800670759031 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightLeg-bone-0.07919042452944147 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightLegRoll-bone-0.4782869002599033 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFoot-bone-0.3242920616524134 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightToeBase-bone-0.803832559678326 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootExtraFinger1-bone-0.12611918105015152 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootExtraFinger1-bone-0.027696272123496013 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootPinky1-bone-0.2856252846752655 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootIndex1-bone-0.8142706093363036 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootMiddle1-bone-0.04059521524818677 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootRing1-bone-0.9506106821445568 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootExtraFinger2-bone-0.014052626149628544 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootExtraFinger3-bone-0.7332860584175603 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootIndex2-bone-0.6650071374624281 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootIndex2-bone-0.684060581565688 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootIndex3-bone-0.40891496810250727 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:17: Can't assign material bone to SubEntity of RightFootMiddle2-bone-0.14583167995597923 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of RightFootMiddle3-bone-0.47385132799368035 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of RightFootRing2-bone-0.1443409996812609 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of RightFootRing3-bone-0.38090670656298764 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of RightFootPinky2-bone-0.8998596449136805 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of RightFootPinky3-bone-0.450322909867352 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftUpLegRoll-bone-0.5295183582668206 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftLeg-bone-0.7206068192269731 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftLegRoll-bone-0.42898588146416683 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFoot-bone-0.1741503182759715 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftToeBase-bone-0.08620996719183793 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootExtraFinger1-bone-0.7532198814118564 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootIndex1-bone-0.32496450116912445 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootIndex1-bone-0.6536632296891923 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootRing1-bone-0.25765870888856 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootMiddle1-bone-0.1450362276011996 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootPinky1-bone-0.24154607548209905 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootExtraFinger2-bone-0.2954343159988899 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootExtraFinger3-bone-0.46703967144661984 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootIndex2-bone-0.6030968765419747 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootIndex3-bone-0.1888320728417061 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootMiddle2-bone-0.5464381469929946 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootMiddle3-bone-0.15809948748324254 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootRing2-bone-0.3667752459465451 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootRing3-bone-0.28602719356975514 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootPinky2-bone-0.16652094366272108 because this Material does not exist. Have you forgotten to define it in a .material script?
+12:11:18: Can't assign material bone to SubEntity of LeftFootPinky3-bone-0.6146436236603994 because this Material does not exist. Have you forgotten to define it in a .material script?

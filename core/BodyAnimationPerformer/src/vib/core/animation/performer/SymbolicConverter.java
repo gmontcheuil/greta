@@ -1,17 +1,4 @@
-/* This file is part of Greta.
- * Greta is free software: you can redistribute it and / or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-* 
-* Greta is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with Greta.If not, see <http://www.gnu.org/licenses/>.
-*//*
+/*
  * This file is part of VIB (Virtual Interactive Behaviour).
  */
 package vib.core.animation.performer;
@@ -403,16 +390,16 @@ public class SymbolicConverter implements CharacterDependent {
         Quaternion q = new Quaternion();
         if (t.verticalTorsion.flag == true) {
             if (t.verticalTorsion.direction == SpineDirection.Direction.LEFTWARD) {
-                double v = t.verticalTorsion.value * _torsoIntervals.verticalL;
-                double radian = (double) (v * java.lang.Math.PI / 180.0 * 0.45);
+                double v = t.verticalTorsion.value*Math.toRadians(_torsoIntervals.lateralL) ;//* _torsoIntervals.verticalL;
+                //double radian = (double) (v * java.lang.Math.PI / 180.0 * 0.45);
                 Quaternion r = new Quaternion();
-                r.setAxisAngle(new Vec3d(0, 1, 0), radian);
+                r.setAxisAngle(new Vec3d(0, 1, 0), v); // radian
                 q = Quaternion.multiplication(q, r);
             } else {
-                double v = t.verticalTorsion.value * _torsoIntervals.verticalR;
-                double radian = (double) (v * java.lang.Math.PI / 180.0 * 0.45);
+                double v = t.verticalTorsion.value*Math.toRadians(_torsoIntervals.lateralR) ; //* _torsoIntervals.verticalL;
+                //double radian = (double) (v * java.lang.Math.PI / 180.0 * 0.45);
                 Quaternion r = new Quaternion();
-                r.setAxisAngle(new Vec3d(0, 1, 0), -radian);
+                r.setAxisAngle(new Vec3d(0, 1, 0), -v); // radian
                 q = Quaternion.multiplication(q, r);
             }
         }
@@ -446,10 +433,10 @@ public class SymbolicConverter implements CharacterDependent {
                 q = Quaternion.multiplication(q, r);
             }
         }
-        //torse.setRotation(q);
+        torse.setRotation(q);
         if (t.collapse.flag == true) {
             String list[] = {"vt3", "vt5", "vt12", "vl5"};
-            Quaternion each = Quaternion.slerp(new Quaternion(), q, 0.25f, true);
+            //Quaternion each = Quaternion.slerp(new Quaternion(), q, 0.25f, true);
             Quaternion each2 = Quaternion.slerp(new Quaternion(), q, 0.5f, true);
             torse.addRotation("vt2", each2);
             torse.addRotation("vt5", q);
@@ -459,7 +446,16 @@ public class SymbolicConverter implements CharacterDependent {
 //                torse.addRotation(name, each);
 //            }
         } else {
-            torse.addRotation("vl5", q);
+            Quaternion each = Quaternion.slerp(new Quaternion(), q, 0.5, true);
+            if (t.getonlyshoulder()){
+                torse.addRotation("vt12", q);
+            }else {
+                //Quaternion each2 = Quaternion.slerp(new Quaternion(), each, 0.5, true);
+                torse.addRotation("vl5", each);
+                torse.addRotation("vt12", each);
+                //torse.addRotation("vl4", each);
+                //torse.addRotation("vl3", each);
+            }
         }
         return torse;
     }
@@ -483,6 +479,7 @@ public class SymbolicConverter implements CharacterDependent {
         double rx = 0;
         double ry = 0;
         double rz = 0;
+        
         if (h.verticalTorsion.flag == true) {
             if (h.verticalTorsion.direction != null) {
                 if (h.verticalTorsion.direction == SpineDirection.Direction.LEFTWARD) {
@@ -520,19 +517,19 @@ public class SymbolicConverter implements CharacterDependent {
 
         head.setRotation(q);
         {
-            Quaternion qvc1 = new Quaternion(new Vec3d(0, 1, 0), (double) (ry / 3.0));
-            qvc1.multiply(new Quaternion(new Vec3d(1, 0, 0), (double) (rx * 0.7)));
+            Quaternion qvc1 = new Quaternion(new Vec3d(0, 1, 0), (double) (ry / 3.0)); // divided by 3 because we rotate 3 vertebraes which sum the rotation to each other
+            qvc1.multiply(new Quaternion(new Vec3d(1, 0, 0), (double) (rx * 0.3)));
             qvc1.multiply(new Quaternion(new Vec3d(0, 0, 1), (double) (rz * 0.1)));
 
-            Quaternion qvc4 = new Quaternion(new Vec3d(0, 1, 0), (double) (ry / 3.0));
-            qvc4.multiply(new Quaternion(new Vec3d(1, 0, 0), (double) (rx * 0.2)));
+            Quaternion qvc4 = new Quaternion(new Vec3d(0, 1, 0), (double) (ry / 2.0));
+            qvc4.multiply(new Quaternion(new Vec3d(1, 0, 0), (double) (rx * 0.5)));
             qvc4.multiply(new Quaternion(new Vec3d(0, 0, 1), (double) (rz * 0.3)));
 
-            Quaternion qvc7 = new Quaternion(new Vec3d(0, 1, 0), (double) (ry / 3.0));
-            qvc7.multiply(new Quaternion(new Vec3d(1, 0, 0), (double) (rx * 0.1)));
+            Quaternion qvc7 = new Quaternion(new Vec3d(0, 1, 0), (double) (ry / 2.0)); // *
+            qvc7.multiply(new Quaternion(new Vec3d(1, 0, 0), (double) (rx * 0.5)));
             qvc7.multiply(new Quaternion(new Vec3d(0, 0, 1), (double) (rz * 0.6)));
 
-            head.addRotation("vc1", qvc1);
+            //head.addRotation("vc1", qvc1);
             head.addRotation("vc4", qvc4);
             head.addRotation("vc7", qvc7);
 

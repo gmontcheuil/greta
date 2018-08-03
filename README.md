@@ -1,6 +1,4 @@
-﻿# 2018-08-01 - Gaze feature in progress
-
-# Greta
+﻿# Greta
 Realtime platform to control socio-emotional virtual characters 
 
 ![Greta logo](https://github.com/gretaproject/Greta/blob/master/pictures/Greta_hello.png)

@@ -1,32 +1,24 @@
-/* This file is part of Greta.
- * Greta is free software: you can redistribute it and / or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-* 
-* Greta is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License
-* along with Greta.If not, see <http://www.gnu.org/licenses/>.
-*//*
+/*
  * This file is part of VIB (Virtual Interactive Behaviour).
  */
 package vib.core.animation.mpeg4;
 
+import java.util.Arrays;
 import java.util.List;
 import vib.core.animation.mpeg4.bap.BAPFrame;
 import vib.core.animation.mpeg4.bap.BAPFramesEmitter;
 import vib.core.animation.mpeg4.bap.BAPFramesEmitterImpl;
 import vib.core.animation.mpeg4.bap.BAPFramesPerformer;
+import vib.core.animation.mpeg4.bap.BAPType;
 import vib.core.animation.mpeg4.fap.FAPFrame;
 import vib.core.animation.mpeg4.fap.FAPFrameEmitter;
 import vib.core.animation.mpeg4.fap.FAPFrameEmitterImpl;
 import vib.core.animation.mpeg4.fap.FAPFramePerformer;
+import vib.core.animation.mpeg4.fap.FAPType;
 import vib.core.util.CharacterDependent;
 import vib.core.util.CharacterManager;
+import vib.core.util.IniManager;
+import vib.core.util.IniParameter;
 import vib.core.util.Mode;
 import vib.core.util.animationparameters.APFrameList;
 import vib.core.util.audio.Audio;
@@ -35,7 +27,9 @@ import vib.core.util.audio.AudioEmitterImpl;
 import vib.core.util.audio.AudioPerformer;
 import vib.core.util.audio.AudioTreeNode;
 import vib.core.util.environment.Animatable;
+import vib.core.util.environment.Environment;
 import vib.core.util.id.ID;
+import vib.core.util.math.Quaternion;
 
 /**
  *
@@ -46,11 +40,14 @@ public class MPEG4Animatable extends Animatable implements FAPFramePerformer, BA
     private static final String ASPECT = "ASPECT";
     private APFrameList<BAPFrame> bapFrames;
     private APFrameList<FAPFrame> fapFrames;
-    private AudioTreeNode headNode;
+    //private AudioTreeNode headNode;
     private BAPFramesEmitterImpl bapEmitter = new BAPFramesEmitterImpl();
     private FAPFrameEmitterImpl fapEmitter = new FAPFrameEmitterImpl();
     private AudioEmitterImpl audioEmitter = new AudioEmitterImpl();
-
+    
+    public static List<IniParameter> curPos = Arrays.asList(new IniParameter[13]);
+    public static AudioTreeNode headNode;
+            
     public MPEG4Animatable() {
         this(true);
     }
@@ -69,15 +66,17 @@ public class MPEG4Animatable extends Animatable implements FAPFramePerformer, BA
             setAspect(CharacterManager.getValueString(ASPECT));
             CharacterManager.currentCharacterId = this.getIdentifier();
             CharacterManager.add(this);
+            //IniManager.CurrentPosition = curPos;
         } else {
             getAttachedLeaf().setReference("agent.greta");
         }
-
+        
         headNode = new AudioTreeNode(identifier + "_AudioTreeNode");
         this.addChildOnScaleNode(headNode);
-
+        //this.envi.addNode(headNode);
         this.setGuest(true);
-    }
+        
+        }
 
     /**
      * Changes the identifier of this {@code Node}<br/> never use this until you
@@ -126,11 +125,26 @@ public class MPEG4Animatable extends Animatable implements FAPFramePerformer, BA
     }
 
     public BAPFrame getCurrentBAPFrame() {
-        BAPFrame current = bapFrames.getCurrentFrame();
+        BAPFrame current = bapFrames.getCurrentFrame();        
         return current;
     }
 
     public FAPFrame getCurrentFAPFrame() {
+        curPos.set(0, new IniParameter("head_pitch", String.valueOf(this.getRotationNode().getOrientation().x())));
+        curPos.set(1, new IniParameter("head_yaw", String.valueOf(this.getRotationNode().getOrientation().y())));
+        curPos.set(2, new IniParameter("head_roll", String.valueOf(this.getRotationNode().getOrientation().z())));
+        curPos.set(3, new IniParameter("head_w", String.valueOf(this.getRotationNode().getOrientation().w())));
+        curPos.set(4, new IniParameter("pitch_l_eyeball", String.valueOf(fapFrames.getCurrentFrame().getValue(FAPType.pitch_l_eyeball))));
+        curPos.set(5, new IniParameter("yaw_l_eyeball", String.valueOf(fapFrames.getCurrentFrame().getValue(FAPType.yaw_l_eyeball))));
+        curPos.set(6, new IniParameter("thrust_l_eyeball", String.valueOf(fapFrames.getCurrentFrame().getValue(FAPType.thrust_l_eyeball))));
+        curPos.set(7, new IniParameter("pitch_r_eyeball", String.valueOf(fapFrames.getCurrentFrame().getValue(FAPType.pitch_r_eyeball))));
+        curPos.set(8, new IniParameter("yaw_r_eyeball", String.valueOf(fapFrames.getCurrentFrame().getValue(FAPType.yaw_r_eyeball))));
+        curPos.set(9, new IniParameter("thrust_r_eyeball", String.valueOf(fapFrames.getCurrentFrame().getValue(FAPType.thrust_r_eyeball))));
+        curPos.set(10, new IniParameter("head_x", String.valueOf(headNode.getGlobalCoordinates().x())));
+        curPos.set(11, new IniParameter("head_y", String.valueOf(headNode.getGlobalCoordinates().y())));
+        curPos.set(12, new IniParameter("head_z", String.valueOf(headNode.getGlobalCoordinates().z())));
+        IniManager.CurrentPosition = curPos;
+        
         return fapFrames.getCurrentFrame();
     }
 
