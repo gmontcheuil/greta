@@ -188,6 +188,17 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
 
             //keyframes generation according to the influence 
             Influence inf = gaze.getInfluence();
+            if (inf == null) {
+                if (Math.max(Math.abs(ha.h_pitchAngle), Math.abs(ha.h_yawAngle)) > 0.523599){ // 30°
+                    inf = Influence.TORSO;
+                } else if (Math.max(Math.abs(ha.h_pitchAngle), Math.abs(ha.h_yawAngle)) > 0.349066){ // 20°
+                    inf = Influence.SHOULDER;
+                } else if (Math.max(Math.abs(ha.h_pitchAngle), Math.abs(ha.h_yawAngle)) > 0.261799){ // 15
+                    inf = Influence.HEAD;
+                }else{
+                    inf = Influence.EYES;
+                }                   
+            }
             if (inf.ordinal() >= Influence.HEAD.ordinal()) {
                 
                 double maxVel_head = 0.0;
@@ -286,23 +297,23 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                                                             gaze.getOffsetDirection(), gaze.getOffsetAngle(), ha );
                         
                         // calculate the shoulder max speed depending on the rotation angle
-                        double maxVel_shoulder = Math.toRadians(Math.abs((4/3 * Math.toDegrees(Math.abs(sha.sh_limitedYaw*TORSO_YAW_LIMIT))/15 + 2)*Math.toDegrees(TORSO_ANGULAR_SPEED)));
+                        double maxVel_shoulder = Math.toRadians(Math.abs((4/3 * Math.toDegrees(Math.abs(sha.sh_minimumAlign*TORSO_YAW_LIMIT))/15 + 2)*Math.toDegrees(TORSO_ANGULAR_SPEED)));
                         //double maxVel_shoulder_pitch = Math.toRadians(Math.abs((4/3 * Math.toDegrees(Math.abs(sha.sh_limitedYaw*TORSO_YAW_LIMIT))/15 + 2)*Math.toDegrees(TORSO_ANGULAR_SPEED)));
 
-                        double timeShoulderAtTarget = start + sha.sh_latency + Math.max(Math.abs(sha.sh_limitedYaw), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
+                        double timeShoulderAtTarget = start + sha.sh_latency + Math.max(Math.abs(sha.sh_minimumAlign), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
                         // for angle too large the time to reach the target can be more than the time the gaze have to reach the target
                         if (timeShoulderAtTarget > ready){
                             timeShoulderAtTarget = ready;
                         }
                         
-                        double timeBackShoulderAtZero = relax + Math.max(Math.abs(sha.sh_limitedYaw), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
+                        double timeBackShoulderAtZero = relax + Math.max(Math.abs(sha.sh_minimumAlign), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
                         if (timeBackShoulderAtZero > end){
                             timeBackShoulderAtZero = end;
                         }                        
                         
                         TorsoSignal ts1 = new TorsoSignal(IDProvider.createID("gazegenerator").toString());
                         ts1.setDirectionShift(true);
-                        SpinePhase tp1 = createTorsoPhase("end", timeShoulderAtTarget, timeShoulderAtTarget, sha.sh_limitedYaw, sha.sh_limitedPitch); // ready
+                        SpinePhase tp1 = createTorsoPhase("end", timeShoulderAtTarget, timeShoulderAtTarget, sha.sh_minimumAlign, sha.sh_limitedPitch); // ready
                         tp1.setStartTime(timeShoulderAtTarget); // ready
                         ts1.getPhases().add(tp1);
                         ts1.getStart().setValue(start+sha.sh_latency); // +sha.sh_latency
@@ -349,20 +360,20 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                         gaze.getOffsetDirection(), gaze.getOffsetAngle(), ha );
                          
                         // calculate the shoulder max speed depending on the rotation angle
-                        double maxVel_shoulder = Math.toRadians(Math.abs((4/3 * Math.toDegrees(Math.abs(sha.sh_limitedYaw*TORSO_YAW_LIMIT))/15 + 2)*Math.toDegrees(TORSO_ANGULAR_SPEED)));
+                        double maxVel_shoulder = Math.toRadians(Math.abs((4/3 * Math.toDegrees(Math.abs(sha.sh_minimumAlign*TORSO_YAW_LIMIT))/15 + 2)*Math.toDegrees(TORSO_ANGULAR_SPEED)));
                         //double maxVel_shoulder_pitch = Math.toRadians(Math.abs((4/3 * Math.toDegrees(Math.abs(sha.sh_limitedYaw*TORSO_YAW_LIMIT))/15 + 2)*Math.toDegrees(TORSO_ANGULAR_SPEED)));
 
-                        double timeShoulderAtTarget = start + sha.sh_latency + Math.max(Math.abs(sha.sh_limitedYaw), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
+                        double timeShoulderAtTarget = start + sha.sh_latency + Math.max(Math.abs(sha.sh_minimumAlign), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
                         if (timeShoulderAtTarget > ready){
                             timeShoulderAtTarget = ready;
                         }
-                        double timeBackShoulderAtZero = relax + Math.max(Math.abs(sha.sh_limitedYaw), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
+                        double timeBackShoulderAtZero = relax + Math.max(Math.abs(sha.sh_minimumAlign), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
                         if (timeBackShoulderAtZero > end){
                             timeBackShoulderAtZero = end;
                         }
                         TorsoSignal ts1 = new TorsoSignal(IDProvider.createID("gazegenerator").toString());
                         ts1.setDirectionShift(true);
-                        SpinePhase tp1 = createTorsoPhase("end", timeShoulderAtTarget, timeShoulderAtTarget, sha.sh_limitedYaw, sha.sh_limitedPitch); // ready
+                        SpinePhase tp1 = createTorsoPhase("end", timeShoulderAtTarget, timeShoulderAtTarget, sha.sh_minimumAlign, sha.sh_limitedPitch); // ready
                         tp1.setStartTime(timeShoulderAtTarget); // ready
                         ts1.getPhases().add(tp1);
                         ts1.getStart().setValue(start+sha.sh_latency); // +sha.sh_latency
@@ -435,11 +446,6 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
             //euler angles to target + offset, for head
             HeadAngles ha = new HeadAngles(envi, gaze.getOrigin(), gaze.getTarget(),
                     gaze.getOffsetDirection(), gaze.getOffsetAngle());
-            //ha.limitEyesAngles();
-
-            HeadAngles ha_front = new HeadAngles(envi, gaze.getOrigin(), null,
-                    GazeDirection.FRONT, 0.0);
-            //ha_front.limitEyesAngles();
             
             //euler angles to target + offset, for shoulder (same for torso)
             ShouldersAngles sha = new ShouldersAngles(envi, gaze.getOrigin(), gaze.getTarget(),
@@ -470,84 +476,92 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                 }
             }
 
-            HeadKeyframeGenerator hkfg = null;
-            TorsoKeyframeGenerator tkfg = null;
-            for (KeyframeGenerator kg : otherModalitiesKFGenerators) {
-                if (kg instanceof HeadKeyframeGenerator) {
-                    hkfg = (HeadKeyframeGenerator) kg;
-                }
-                if (kg instanceof TorsoKeyframeGenerator) {
-                    tkfg = (TorsoKeyframeGenerator) kg;
-                }
+            // check the influence. if null the influence us automatically calculated according to the gaze rotation angle 
+            // - after 15° the head move
+            // - with a gaze rotation more than 20, the shoulder start to move
+            // - with a gaze rotation more than 30, the all torso start to move
+            Influence inf = gaze.getInfluence();
+            if (inf == null) {
+                if (Math.max(Math.abs(ha.h_pitchAngle), Math.abs(ha.h_yawAngle)) > 0.523599){ // 30°
+                    inf = Influence.TORSO;
+                } else if (Math.max(Math.abs(ha.h_pitchAngle), Math.abs(ha.h_yawAngle)) > 0.349066){ // 20°
+                    inf = Influence.SHOULDER;
+                } else if (Math.max(Math.abs(ha.h_pitchAngle), Math.abs(ha.h_yawAngle)) > 0.261799){ // 15°
+                    inf = Influence.HEAD;
+                }else{
+                    inf = Influence.EYES;
+                }                   
             }
-
-
+            
             //add to outputkeyframe the eyes keyframe at START time
             addEyesAUFeyFrame(outputKeyframe, gazeId + "_to", "start", start, Side.LEFT, ha.l_GazeDirection, 0.0, 0.0); //TODO: use shifts
             addEyesAUFeyFrame(outputKeyframe, gazeId + "_to", "start", start, Side.RIGHT, ha.r_GazeDirection, 0.0, 0.0); //TODO: use shifts
             
-            // calculate the max speed of the eyes depending on the rotation angle
-            double Amin = Math.toDegrees(Math.abs(Math.min(ha.l_limitedYaw*EYES_YAW_LIMIT, ha.r_limitedYaw*EYES_YAW_LIMIT)));                
-            double maxVel_eyes = Math.toRadians((2*Amin/75 + 1/6)*Math.toDegrees(EYES_ANGULAR_SPEED));
-            
-            double Amin_pitch = Math.toDegrees(Math.abs(Math.min(ha.l_limitedPitch*EYES_YAW_LIMIT, ha.r_limitedPitch*EYES_YAW_LIMIT)));  
-            double maxVel_eyes_pitch = Math.toRadians((2*Amin_pitch/75 + 1/6)*Math.toDegrees(EYES_ANGULAR_SPEED));    
-            
-            double timeEyesAtTarget = 0.0;
-            double timeBackEyesAtZero = 0.0;
-            if(gaze.getInfluence().ordinal()>Influence.EYES.ordinal())
-            {         
-                //if(!scheduled) we compute adequate "ready" and "relax" for the eyes
-                //eyes start moving at "start" time marker, and reach their limit position at "eyesAtMax"
-                timeEyesAtTarget = Math.min(start + Math.max(Math.abs(ha.l_limitedYaw), Math.abs(ha.l_limitedPitch)) / maxVel_eyes, start + Math.max(Math.abs(ha.r_limitedYaw), Math.abs(ha.r_limitedPitch)) / maxVel_eyes);
-                timeBackEyesAtZero = Math.min(relax + Math.max(Math.abs(ha.l_limitedYaw), Math.abs(ha.l_limitedPitch)) / maxVel_eyes, relax + Math.max(Math.abs(ha.r_limitedYaw), Math.abs(ha.r_limitedPitch)) / maxVel_eyes);
-
-                timesWithEyesKeyframes.add(timeEyesAtTarget);
-                timesWithEyesKeyframes.add(timeBackEyesAtZero);
-            }
+            double Amin = 0.0;                
+            double Amin_pitch = 0.0;   
             
             // calculate the head max speed depending on the rotation angle
-            double maxVel_head = Math.toRadians(Math.abs((4/3 * Math.toDegrees(sha.ha.h_limitedYaw*HEAD_YAW_LIMIT)/50 + 2/5)*Math.toDegrees(HEAD_ANGULAR_SPEED)));
+            double maxVel_head = Math.toRadians(Math.abs((4/3 * Math.toDegrees(sha.ha.h_limitedYaw)/50 + 2/5)*Math.toDegrees(HEAD_ANGULAR_SPEED)));
             if (sha.ha.h_limitedPitch < 0.0) {
-                double maxVel_head_pitch = Math.toRadians(Math.abs((4/3 * Math.toDegrees(sha.ha.h_limitedPitch*HEAD_PITCH_LIMIT_DOWN)/50 + 2/5)*Math.toDegrees(HEAD_ANGULAR_SPEED)));
+                double maxVel_head_pitch = Math.toRadians(Math.abs((4/3 * Math.toDegrees(sha.ha.h_limitedPitch)/50 + 2/5)*Math.toDegrees(HEAD_ANGULAR_SPEED)));
             } else {
-                double maxVel_head_pitch = Math.toRadians(Math.abs((4/3 * Math.toDegrees(sha.ha.h_limitedPitch*HEAD_PITCH_LIMIT_UP)/50 + 2/5)*Math.toDegrees(HEAD_ANGULAR_SPEED)));
+                double maxVel_head_pitch = Math.toRadians(Math.abs((4/3 * Math.toDegrees(sha.ha.h_limitedPitch)/50 + 2/5)*Math.toDegrees(HEAD_ANGULAR_SPEED)));
             }
      
             double timeHeadAtTarget = 0.0;
-            if(gaze.getInfluence().ordinal()>Influence.HEAD.ordinal())
+            if(inf.ordinal()>Influence.HEAD.ordinal())
             {
+                // calculate the max speed of the eyes depending on the rotation angle
+                Amin = Math.toDegrees(Math.abs(Math.min(sha.ha.l_limitedYaw*EYES_YAW_LIMIT, sha.ha.r_limitedYaw*EYES_YAW_LIMIT)));                
+                Amin_pitch = Math.toDegrees(Math.abs(Math.min(sha.ha.l_limitedPitch*EYES_PITCH_LIMIT, sha.ha.r_limitedPitch*EYES_PITCH_LIMIT)));  
                 
                 // time head reach the target position and come back
-                timeHeadAtTarget = start + head_latency + Math.max(Math.abs(ha.h_limitedYaw), Math.abs(ha.h_limitedPitch)) / maxVel_head; // 0.1 is the latency time 
-                double timeBackHeadAtZero = relax + Math.max(Math.abs(ha.h_limitedYaw), Math.abs(ha.h_limitedPitch)) / maxVel_head;
+                timeHeadAtTarget = start + head_latency + Math.max(Math.abs(sha.ha.h_limitedYaw), Math.abs(sha.ha.h_limitedPitch)) / maxVel_head; // 0.1 is the latency time 
+                double timeBackHeadAtZero = relax + Math.max(Math.abs(sha.ha.h_limitedYaw), Math.abs(sha.ha.h_limitedPitch)) / maxVel_head;
 
                 timesWithEyesKeyframes.add(timeHeadAtTarget);
                 timesWithEyesKeyframes.add(timeBackHeadAtZero);
                 
+            }else {             
+                // calculate the max speed of the eyes depending on the rotation angle
+                Amin = Math.toDegrees(Math.abs(Math.min(ha.l_limitedYaw*EYES_YAW_LIMIT, ha.r_limitedYaw*EYES_YAW_LIMIT)));                
+                Amin_pitch = Math.toDegrees(Math.abs(Math.min(ha.l_limitedPitch*EYES_PITCH_LIMIT, ha.r_limitedPitch*EYES_PITCH_LIMIT)));      
             }
             
-            // calculate the shoulder max speed depending on the rotation angle
-            double maxVel_shoulder = Math.toRadians(Math.abs((4/3 * Math.toDegrees(Math.abs(sha.sh_limitedYaw*TORSO_YAW_LIMIT))/15 + 2)*Math.toDegrees(TORSO_ANGULAR_SPEED)));
-            //double maxVel_shoulder_pitch = Math.toRadians(Math.abs((4/3 * Math.toDegrees(Math.abs(sha.sh_limitedYaw*TORSO_YAW_LIMIT))/15 + 2)*Math.toDegrees(TORSO_ANGULAR_SPEED)));
+            double maxVel_eyes = Math.toRadians((2*Amin/75 + 1/6)*Math.toDegrees(EYES_ANGULAR_SPEED));
+            double maxVel_eyes_pitch = Math.toRadians((2*Amin_pitch/75 + 1/6)*Math.toDegrees(EYES_ANGULAR_SPEED));  
+            double timeEyesAtTarget = 0.0;
+            double timeBackEyesAtZero = 0.0;
             
-           double timeShoulderAtTarget = 0.0;
-            if(gaze.getInfluence().ordinal()>Influence.HEAD.ordinal())
+            //if(!scheduled) we compute adequate "ready" and "relax" for the eyes
+            //eyes start moving at "start" time marker, and reach their limit position at "eyesAtMax"
+            if(inf.ordinal()>Influence.HEAD.ordinal())
+            {
+                timeEyesAtTarget = Math.min(start + Math.max(Math.abs(sha.ha.l_limitedYaw), Math.abs(sha.ha.l_limitedPitch))/ maxVel_eyes, start + Math.max(Math.abs(sha.ha.r_limitedYaw), Math.abs(sha.ha.r_limitedPitch))/ maxVel_eyes);
+                timeBackEyesAtZero = Math.min(relax + Math.max(Math.abs(sha.ha.l_limitedYaw), Math.abs(sha.ha.l_limitedPitch))/ maxVel_eyes, relax + Math.max(Math.abs(sha.ha.r_limitedYaw), Math.abs(sha.ha.r_limitedPitch)) / maxVel_eyes);
+            }else{
+                timeEyesAtTarget = Math.min(start + Math.max(Math.abs(ha.l_limitedYaw), Math.abs(ha.l_limitedPitch))*EYES_YAW_LIMIT / maxVel_eyes, start + Math.max(Math.abs(ha.r_limitedYaw), Math.abs(ha.r_limitedPitch))*EYES_YAW_LIMIT / maxVel_eyes);
+                timeBackEyesAtZero = Math.min(relax + Math.max(Math.abs(ha.l_limitedYaw), Math.abs(ha.l_limitedPitch))*EYES_YAW_LIMIT / maxVel_eyes, relax + Math.max(Math.abs(ha.r_limitedYaw), Math.abs(ha.r_limitedPitch))*EYES_YAW_LIMIT / maxVel_eyes);
+            }
+            timesWithEyesKeyframes.add(timeEyesAtTarget);
+            timesWithEyesKeyframes.add(timeBackEyesAtZero);
+            
+            
+            
+            // calculate the shoulder max speed depending on the rotation angle
+            double maxVel_shoulder = Math.toRadians(Math.abs((4/3 * Math.toDegrees(Math.abs(sha.sh_minimumAlign*TORSO_YAW_LIMIT))/15 + 2)*Math.toDegrees(TORSO_ANGULAR_SPEED)));
+            
+            double timeShoulderAtTarget = 0.0;
+            if(inf.ordinal()>Influence.HEAD.ordinal())
             {
                 // time head reach the target position and come back
-                timeShoulderAtTarget = start + sha.sh_latency + Math.max(Math.abs(sha.sh_limitedYaw), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
-                double timeBackShoulderAtZero = relax + Math.max(Math.abs(sha.sh_limitedYaw), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
+                timeShoulderAtTarget = start + sha.sh_latency + Math.max(Math.abs(sha.sh_minimumAlign), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
+                double timeBackShoulderAtZero = relax + Math.max(Math.abs(sha.sh_minimumAlign), Math.abs(sha.sh_limitedPitch)) / maxVel_shoulder;
 
                 timesWithEyesKeyframes.add(timeShoulderAtTarget);
                 timesWithEyesKeyframes.add(timeBackShoulderAtZero);
                 
-            }
-            
-            //  if we want to move all body
-            /*if(gaze.getInfluence().ordinal()>Influence.TORSO.ordinal())
-            {
-                
-            }*/
+            }           
 
             //else, just use ready and relax of the gaze
             timesWithEyesKeyframes.add(ready);
@@ -560,30 +574,17 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
             if (head_latency > sha.sh_latency){
                 head_latency = 0.0;
             }
-            
-            Map<Double, Double> TimeHeadAngle = new HashMap<Double, Double>();
                             
             // add Keyframes for the eyes at every moment there is a body keyframe between start and end
             // for instance, when there is a nod, the eyes should keep on the target
             if (!timesWithEyesKeyframes.isEmpty()) {
                 Double latestTime = start;
                 
-                double lastEyeAngle_l = 0.0; // variable to store the rotation angle of eyes at each time
-                double lastEyeAngle_r = 0.0;
-                double lastEyeAngle_h = 0.0;
-                
-                double TargetAngle_l = ha.l_limitedYaw; // angle eyes at the target
-                double TargetAngle_r = ha.r_limitedYaw;
-                double TargetAngle_h = ha.h_limitedYaw; // angle head at target
-                
                 double l_limitYaw = 0.0;
                 double r_limitYaw = 0.0;
                 double l_limitPitch = 0.0;
                 double r_limitPitch = 0.0;
-                
-                boolean headatTarg = false;
-                boolean shoulderTarg = false;
-                
+                               
                 for (Double time : timesWithEyesKeyframes) {
                     if (time > start && time < end && latestTime.compareTo(time) != 0) {
                         /*************************************************
@@ -594,486 +595,57 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                             * INFLUENCE INVOLVES TORSO OR SHOULDER
                             * --------------------------------------------------*/
 
-                            if (gaze.getInfluence().ordinal()>=Influence.SHOULDER.ordinal()){
-                                // ************************* 1: The head and the shoulder are still ****************************************************
-                                if ( time <= start + head_latency ){ 
-                                    
+                            if (inf.ordinal()>=Influence.SHOULDER.ordinal()){                               
                                     // if the eyes reach already the target position
-                                     if ( time.equals(timeEyesAtTarget) ){
+                                     if ( time >= timeEyesAtTarget ){
                                         l_limitYaw = sha.ha.l_limitedYaw;
                                         r_limitYaw = sha.ha.r_limitedYaw;
                                         l_limitPitch = sha.ha.l_limitedPitch;
                                         r_limitPitch = sha.ha.r_limitedPitch;
 
-                                        lastEyeAngle_l = sha.ha.l_limitedYaw;
-                                        lastEyeAngle_r = sha.ha.r_limitedYaw;
                                     } else if (time < timeEyesAtTarget) {
-                                        l_limitYaw = sha.ha.l_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
-                                        r_limitYaw = sha.ha.r_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
-                                        l_limitPitch = sha.ha.l_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
-                                        r_limitPitch = sha.ha.r_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
-                                        
-                                        lastEyeAngle_l = l_limitYaw;
-                                        lastEyeAngle_r = r_limitYaw;     
+                                        l_limitYaw = (sha.ha.l_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes);
+                                        r_limitYaw = (sha.ha.r_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes);
+                                        l_limitPitch = (sha.ha.l_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch);
+                                        r_limitPitch = (sha.ha.r_limitedPitch- (timeEyesAtTarget - time)*maxVel_eyes_pitch);
+   
                                     }
-                                    
-                                // ************************* 2: The head move but the shoulders are still ****************************************************************
-                                }else if (time > start + head_latency && time <= start + sha.sh_latency){ 
-                                    //head keyframe at time                                   
-                                    HeadKeyframe hkf = getHeadKeyframeAtTime(time, outputKeyframe, hkfg, start, end);
-                                    double head_ang_yaw = hkf.verticalTorsion.value; 
-                                    double head_ang_pitch = hkf.sagittalTilt.value; 
-                                    
-                                    // if the eyes reach the target
-                                    if (lastEyeAngle_l == TargetAngle_l && lastEyeAngle_r == TargetAngle_r){ 
-                                        // eliminate the addition rotation due to the head movement
-                                        l_limitYaw = (lastEyeAngle_l*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                        r_limitYaw = (lastEyeAngle_r*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                        if (hkf.sagittalTilt.value < 0.0){
-                                            l_limitPitch = (sha.ha.l_limitedPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                            r_limitPitch = (sha.ha.r_limitedPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                        }else {
-                                            l_limitPitch = (sha.ha.l_limitedPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                            r_limitPitch = (sha.ha.r_limitedPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                        }                                      
-                                    // the eyes don't reach the target    
-                                    } else { 
-
-                                        // calculate the eyes position at the time 
-                                        l_limitYaw = sha.ha.l_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
-                                        r_limitYaw = sha.ha.r_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
-                                        l_limitPitch = sha.ha.l_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
-                                        r_limitPitch = sha.ha.r_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
-
-                                        // eyes position not considering the movement of the head
-                                        lastEyeAngle_l = l_limitYaw;
-                                        lastEyeAngle_r = r_limitYaw;
-
-                                        // eliminate the addition rotation due to the head movement
-                                        l_limitYaw = (l_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                        r_limitYaw = (r_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                        if (ha.l_GazeDirection.name().equals("DOWNRIGHT") || ha.l_GazeDirection.name().equals("DOWN") || ha.l_GazeDirection.name().equals("DOWNLEFT")){
-                                            l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                            r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                        }else {
-                                            l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                            r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                        }
-                                    } 
-                                // ************************* 3: eyes, head and shoulder are moving simultaneously *******************************************
-                                } else { 
-                                    
-                                    // shoulderkeyframe at time
-                                    double shoulder_ang_yaw = 0.0;
-                                    TorsoKeyframe skf = getTorsoKeyframeAtTime(time, outputKeyframe, tkfg);
-                                    shoulder_ang_yaw = skf.verticalTorsion.value; 
-                                    // check if the shoulders reach the target
-                                    if (shoulder_ang_yaw == Math.abs(sha.sh_limitedYaw)){
-                                        shoulderTarg = true;
-                                    }
- 
-                                    // headkeyframe at time
-                                    HeadKeyframe hkf = getHeadKeyframeAtTime(time, outputKeyframe, hkfg, start, end);
-                                    double head_ang_yaw = hkf.verticalTorsion.value;
-                                    double head_ang_pitch = hkf.sagittalTilt.value;   
-                                    // check if the head reach the tarhet
-                                    if (head_ang_yaw == sha.ha.h_limitedYaw){
-                                        headatTarg = true;
-                                        
-                                    }
-                                      
-                                    // eliminate the shoulder rotation rom the head angle
-                                    if (shoulder_ang_yaw*TORSO_YAW_LIMIT >= head_ang_yaw*HEAD_YAW_LIMIT ){
-                                            head_ang_yaw = 0.0;
-                                    }else {
-                                        if (Math.abs(sha.ha.h_yawAngle) > 0.5*HEAD_YAW_LIMIT + 1.0*TORSO_YAW_LIMIT && Math.abs(sha.ha.h_yawAngle) <= 1.0*HEAD_YAW_LIMIT + 1.0*TORSO_YAW_LIMIT ){
-                                            if (headatTarg){
-                                                head_ang_yaw = Math.abs(sha.ha.h_yawAngle) - shoulder_ang_yaw*TORSO_YAW_LIMIT;
-                                            } else {
-                                                head_ang_yaw = head_ang_yaw - shoulder_ang_yaw*TORSO_YAW_LIMIT; 
-                                            }   
-                                        } else if ( Math.abs(sha.ha.h_yawAngle) > 1.0*HEAD_YAW_LIMIT + 1.0*TORSO_YAW_LIMIT){
-                                            /*if (headatTarg){
-                                            }
-                                            TorsoKeyframe tkf_ready = getTorsoKeyframeAtTime(ready, outputKeyframe, tkfg);
-                                            HeadKeyframe hkf_ready = getHeadKeyframeAtTime(ready, outputKeyframe, hkfg, start, end);
-                                            head_ang_yaw = (head_ang_yaw*HEAD_YAW_LIMIT - shoulder_ang_yaw*TORSO_YAW_LIMIT)/HEAD_YAW_LIMIT;
-                                            shoulder_ang_yaw = 0.0;*/
-                                        } else {
-                                            head_ang_yaw = (head_ang_yaw*HEAD_YAW_LIMIT - shoulder_ang_yaw*TORSO_YAW_LIMIT)/HEAD_YAW_LIMIT;
-                                            shoulder_ang_yaw = 0.0;
-                                        }
-                                    }
-                                    
-                                    TimeHeadAngle.put(time, head_ang_yaw);
-                                  
-                                    // if the eyes reach the target
-                                    if ((lastEyeAngle_l == TargetAngle_l && lastEyeAngle_r == TargetAngle_r )){ 
-                                        
-                                        if (headatTarg && shoulderTarg){
-                                            // eyes angle rotation when head and shoulder reach their max position
-                                            double eyesangle = (Math.abs(sha.ha.h_yawAngle) - TORSO_YAW_LIMIT - HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                            double eyesangle_pitch = 0.0;
-                                            if (ha.h_pitchAngle < 0.0) {
-                                                eyesangle_pitch = (Math.abs(sha.ha.h_pitchAngle) - HEAD_PITCH_LIMIT_DOWN)/HEAD_PITCH_LIMIT_DOWN;
-                                            } else {
-                                                eyesangle_pitch = (Math.abs(sha.ha.h_pitchAngle) - HEAD_PITCH_LIMIT_UP)/HEAD_PITCH_LIMIT_UP;
-                                            }
-
-                                            // yaw angle 
-                                            if (eyesangle <= 0.0){
-                                                l_limitYaw = 0.0;
-                                                r_limitYaw = 0.0;
-                                            } else {
-                                                l_limitYaw = eyesangle;
-                                                r_limitYaw = eyesangle;
-                                            }
-
-                                            // pitch angle
-                                            if (eyesangle_pitch <= 0.0){
-                                                l_limitPitch = 0.0;
-                                                r_limitPitch = 0.0;
-                                            } else {
-                                                l_limitPitch = eyesangle_pitch;
-                                                r_limitPitch = eyesangle_pitch;
-                                            }
-
-                                       
-                                        }/*else if (headatTarg){
-                                            
-                                            
-                                            
-                                        }*/else {
-                                            l_limitYaw = (TargetAngle_l*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT - shoulder_ang_yaw*TORSO_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                            r_limitYaw = (TargetAngle_r*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT - shoulder_ang_yaw*TORSO_YAW_LIMIT)/EYES_YAW_LIMIT;
-
-                                            if (ha.l_GazeDirection.name().equals("DOWNRIGHT") || ha.l_GazeDirection.name().equals("DOWN") || ha.l_GazeDirection.name().equals("DOWNLEFT")){
-                                                if (head_ang_pitch*HEAD_PITCH_LIMIT_UP >= l_limitPitch*EYES_PITCH_LIMIT){
-                                                    l_limitPitch = 0.0;
-                                                    r_limitPitch = 0.0;
-                                                }else {
-                                                    l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                                    r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                                }
-                                                
-                         
-                                            }else {
-                                                if (head_ang_pitch*HEAD_PITCH_LIMIT_UP >= l_limitPitch*EYES_PITCH_LIMIT){
-                                                    l_limitPitch = 0.0;
-                                                    r_limitPitch = 0.0;
-                                                }else {
-                                                    l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                                    r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                                }
-                                            }
-
-                                        }  
-                                        
-                                    
-                                    // the eyes don't reach the target
-                                    } else{ 
-
-                                        // calculate the eyes position at the time 
-                                        l_limitYaw = sha.ha.l_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
-                                        r_limitYaw = sha.ha.r_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
-                                        l_limitPitch = ha.l_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
-                                        r_limitPitch = ha.r_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
-
-                                        // eyes position not considering the movement of the head
-                                        lastEyeAngle_l = l_limitYaw;
-                                        lastEyeAngle_r = r_limitYaw;
-
-                                        // eliminate the addition rotation due to the shoulder movement
-                                        l_limitYaw = (l_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT - shoulder_ang_yaw*TORSO_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                        r_limitYaw = (r_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT - shoulder_ang_yaw*TORSO_YAW_LIMIT)/EYES_YAW_LIMIT;
- 
-                                        if (ha.l_GazeDirection.name().equals("DOWNRIGHT") || ha.l_GazeDirection.name().equals("DOWN") || ha.l_GazeDirection.name().equals("DOWNLEFT")){
-                                            l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                            r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                        }else {
-                                            l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                            r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                        }
-                                    }
-
                                 }
                             /* -------------------------------------------------
                             * INFLUENCE INVOLVES JUST THE HEAD    
                             * -------------------------------------------------- */    
-                            }else {
-                                
-                                // ********************************* 1: the head is still ************************************************************
-                                if ( time <= start + head_latency ){ 
+                            }else {                              
                                     // if the eyes reach already the target position
-                                    if ( time.equals(timeEyesAtTarget)){
+                                    if ( time >= timeEyesAtTarget){
                                         l_limitYaw = ha.l_limitedYaw;
                                         r_limitYaw = ha.r_limitedYaw;
                                         l_limitPitch = ha.l_limitedPitch;
                                         r_limitPitch = ha.r_limitedPitch;
-
-                                        lastEyeAngle_l = ha.l_limitedYaw;
-                                        lastEyeAngle_r = ha.r_limitedYaw;
 
                                     }else if (time < timeEyesAtTarget) {
                                         l_limitYaw = ha.l_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
                                         r_limitYaw = ha.r_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
                                         l_limitPitch = ha.l_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
                                         r_limitPitch = ha.r_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
-                                        
-                                        lastEyeAngle_l = l_limitYaw;
-                                        lastEyeAngle_r = r_limitYaw;
-                                        
+                                             
                                     }
-                                // ********************************* 2: the head is moving ************************************************************     
-                                }else {
-                                    HeadKeyframe hkf = getHeadKeyframeAtTime(time, outputKeyframe, hkfg, start, end);
-                                    double head_ang_yaw = 0.0;
-                                    double head_ang_pitch = 0.0;
-                                    if (hkf != null){
-                                        head_ang_yaw = hkf.verticalTorsion.value; 
-                                        head_ang_pitch = hkf.sagittalTilt.value; 
-                                    }
-                                    
-                                    if (head_ang_yaw == ha.h_limitedYaw){
-                                        lastEyeAngle_h = TargetAngle_h;
-                                    }
-                                      
-                                    // if the influence includes just the eyes
-                                    if (lastEyeAngle_l == 0.0 && lastEyeAngle_r == 0.0){
-                                        l_limitYaw = ha.l_limitedYaw;
-                                        r_limitYaw = ha.r_limitedYaw;
-                                        l_limitPitch = ha.l_limitedPitch;
-                                        r_limitPitch = ha.r_limitedPitch;
-                                        
-                                        lastEyeAngle_l = l_limitYaw;
-                                        lastEyeAngle_r = r_limitYaw;
-                                        
-                                    }
-                                    // if the eyes reach the target
-                                    else if (lastEyeAngle_l == TargetAngle_l && lastEyeAngle_r == TargetAngle_r){ 
-                                        // eliminate the addition rotation due to the head movement
-                                        /*l_limitYaw = (lastEyeAngle_l*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                        r_limitYaw = (lastEyeAngle_r*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;*/
-                                        
-                                        // if also the head reach the tareget position 
-                                        // check if the total angle is more than the sum of eyes_yaw_limit and head_yaw_limit
-                                        if (lastEyeAngle_h == TargetAngle_h){
-                                            double eyesangle = (Math.abs(ha.h_yawAngle) - HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                            double eyesangle_pitch = 0.0;
-                                            if (ha.h_pitchAngle < 0.0) {
-                                                eyesangle_pitch = (Math.abs(ha.h_pitchAngle) - HEAD_PITCH_LIMIT_DOWN)/HEAD_PITCH_LIMIT_DOWN;
-                                            } else {
-                                                eyesangle_pitch = (Math.abs(ha.h_pitchAngle) - HEAD_PITCH_LIMIT_UP)/HEAD_PITCH_LIMIT_UP;
-                                            }
-                                            
-                                            // yaw angle 
-                                            if (eyesangle <= 0.0){ // the total angle is less the head_yaw_limit so the eyes move with the head
-                                                l_limitYaw = 0.0;
-                                                r_limitYaw = 0.0;
-                                            } else if (eyesangle >= EYES_YAW_LIMIT) { // total angle is more than the sum of eyes and head yaw limit 
-                                                l_limitYaw = 1.0;
-                                                r_limitYaw = 1.0;
-                                            } else {
-                                                l_limitYaw = eyesangle/EYES_YAW_LIMIT;
-                                                r_limitYaw = eyesangle/EYES_YAW_LIMIT;
-                                            }
-                                            
-                                            // pitch angle
-                                            if (eyesangle_pitch <= 0.0){
-                                                l_limitPitch = 0.0;
-                                                r_limitPitch = 0.0;
-                                            } else {
-                                                l_limitPitch = eyesangle_pitch;
-                                                r_limitPitch = eyesangle_pitch;
-                                            }
-                       
-                                        }else {
-                                            l_limitYaw = (TargetAngle_l*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                            r_limitYaw = (TargetAngle_r*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                            
-                                            if (gaze.getInfluence().ordinal() == Influence.EYES.ordinal()){
-                                                l_limitPitch = ha.l_limitedPitch;
-                                                r_limitPitch = ha.r_limitedPitch;
-                                            }else {
-                                                if (ha.l_GazeDirection.name().equals("DOWNRIGHT") || ha.l_GazeDirection.name().equals("DOWN") || ha.l_GazeDirection.name().equals("DOWNLEFT")){
-                                                    l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                                    r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                                }else {
-                                                    l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                                    r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                                }
-                                            }
-                                        }
-                                        
-                                    // the eyes don't reach the target
-                                    } else { 
-                                        // calculate the eyes position at the time 
-                                        l_limitYaw = ha.l_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
-                                        r_limitYaw = ha.r_limitedYaw - (timeEyesAtTarget - time)*maxVel_eyes;
-                                        l_limitPitch = ha.l_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
-                                        r_limitPitch = ha.r_limitedPitch - (timeEyesAtTarget - time)*maxVel_eyes_pitch;
-                                        
-                                        // eyes position not considering the movement of the head
-                                        lastEyeAngle_l = l_limitYaw;
-                                        lastEyeAngle_r = r_limitYaw;
-
-                                        // eliminate the addition rotation due to the head movement
-                                        l_limitYaw = (l_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                        r_limitYaw = (r_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                        
-                                        if (ha.l_GazeDirection.name().equals("DOWNRIGHT") || ha.l_GazeDirection.name().equals("DOWN") || ha.l_GazeDirection.name().equals("DOWNLEFT")){
-                                            l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                            r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                        }else {
-                                            l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                            r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                        }
-                                        
-                                }
-                                }
                             }
                         /************************************************* 
                          * BACK TO ZERO
                         **************************************************/    
-                        } else if (time > relax && time < end && !gaze.isGazeShift()) {
-                            l_limitYaw = ha.l_limitedYaw;
-                            r_limitYaw = ha.r_limitedYaw;
-                            l_limitPitch = ha.l_limitedPitch;
-                            r_limitPitch = ha.r_limitedPitch;
-                            
-                            /* -------------------------------------------------
-                            * INFLUENCE INVOLVES TORSO OR SHOULDER
-                            * --------------------------------------------------*/
-                            if (gaze.getInfluence().ordinal()>=Influence.SHOULDER.ordinal()){
-                                // ********************** 1: the shoulders are still. the head start to move together to the eyes *******************************
-                                if ( time <= relax + sha_front.sh_latency ){ 
+                        } else if (time > relax && time < end && !gaze.isGazeShift()) {                            
                                     // if the eyes reach already the target position
-                                    if (time < timeBackEyesAtZero){
-                                        
+                                    if (time < timeBackEyesAtZero){        
                                         l_limitYaw = (timeBackEyesAtZero - time)*maxVel_eyes;
                                         r_limitYaw = (timeBackEyesAtZero - time)*maxVel_eyes;
                                         l_limitPitch = (timeBackEyesAtZero - time)*maxVel_eyes_pitch;
-                                        r_limitPitch = (timeBackEyesAtZero - time)*maxVel_eyes_pitch;
-                                        
-                                        HeadKeyframe hkf = getHeadKeyframeAtTime(time, outputKeyframe, hkfg, start, end);
-                                        double head_ang_yaw = hkf.verticalTorsion.value; 
-                                        double head_ang_pitch = hkf.sagittalTilt.value; 
-                                        
-                                        l_limitYaw = head_ang_yaw - l_limitYaw;
-                                        r_limitYaw = head_ang_yaw - r_limitYaw;
-                                        l_limitPitch = head_ang_pitch - l_limitPitch;
-                                        r_limitPitch = head_ang_pitch - r_limitPitch;
-                                        
-                                        
-                                    } else if ( time.equals(timeBackEyesAtZero) ){
+                                        r_limitPitch = (timeBackEyesAtZero - time)*maxVel_eyes_pitch;                                            
+                                    } else if ( time >= timeBackEyesAtZero ){
                                         l_limitYaw = 0.0;
                                         r_limitYaw = 0.0;
                                         l_limitPitch = 0.0;
                                         r_limitPitch = 0.0;
-                                        
-                                        lastEyeAngle_l = 0.0;
-                                        lastEyeAngle_r = 0.0;
-                                    // after reaching the target position, adjust the eyes position according to the head movement    
-                                    } else if (time > timeBackEyesAtZero ) {
-                                        HeadKeyframe hkf = getHeadKeyframeAtTime(time, outputKeyframe, hkfg, start, end);
-                                        double head_ang_yaw = hkf.verticalTorsion.value; 
-                                        double head_ang_pitch = hkf.sagittalTilt.value; 
-                                        
-                                        l_limitYaw = head_ang_yaw;
-                                        r_limitYaw = head_ang_yaw;
-                                        l_limitPitch = head_ang_pitch;
-                                        r_limitPitch = head_ang_pitch;
-                                        
-                                        lastEyeAngle_l = 0.0; 
-                                        lastEyeAngle_r = 0.0;
-                                    }
-                                // ********************** 3: head, eyes and shoulder are moving together *******************************    
-                                }else if (time > relax + sha_front.sh_latency){ // the shoulders are moving
-                                    //head keyframe at time                                    
-                                    HeadKeyframe hkf = getHeadKeyframeAtTime(time, outputKeyframe, hkfg, start, end);
-                                    double head_ang_yaw = hkf.verticalTorsion.value; 
-                                    double head_ang_pitch = hkf.sagittalTilt.value; 
-                                    
-                                    // torso or shoulder key frame at time
-                                    double shoulder_ang_yaw = 0.0;
-                                    TorsoKeyframe skf = getTorsoKeyframeAtTime(time, outputKeyframe, tkfg);
-                                    shoulder_ang_yaw = skf.verticalTorsion.value; 
-                           
-                                    // if the eyes reach the target
-                                    if (l_limitYaw != 0.0 && r_limitYaw != 0.0){ 
-                                        if (time <= timeBackEyesAtZero){
-                                            // calculate the eyes position at the time 
-                                            l_limitYaw = (timeBackEyesAtZero - time)*maxVel_eyes;
-                                            r_limitYaw = (timeBackEyesAtZero - time)*maxVel_eyes;
-                                            l_limitPitch = (timeBackEyesAtZero - time)*maxVel_eyes_pitch;
-                                            r_limitPitch = (timeBackEyesAtZero - time)*maxVel_eyes_pitch;
-
-                                            // eyes position not considering the movement of the head
-                                            lastEyeAngle_l = l_limitYaw;
-                                            lastEyeAngle_r = r_limitYaw;
-
-                                            // eliminate the addition rotation due to the head movement
-                                            if (l_limitYaw != 0.0 && r_limitYaw != 0.0){
-                                                l_limitYaw = (l_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                                r_limitYaw = (r_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                            }
-
-                                            if (ha.l_GazeDirection.name().equals("DOWNRIGHT") || ha.l_GazeDirection.name().equals("DOWN") || ha.l_GazeDirection.name().equals("DOWNLEFT")){
-                                                if (l_limitPitch != 0.0 && r_limitPitch != 0.0){
-                                                    l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                                    r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_DOWN)/EYES_PITCH_LIMIT;
-                                                }
-                                            }else {
-                                                if (l_limitPitch != 0.0 && r_limitPitch != 0.0){
-                                                    l_limitPitch = (l_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                                    r_limitPitch = (r_limitPitch*EYES_PITCH_LIMIT - head_ang_pitch*HEAD_PITCH_LIMIT_UP)/EYES_PITCH_LIMIT;
-                                                }
-                                            }
-                                        }else {
-                                            l_limitYaw = 0.0;
-                                            r_limitYaw = 0.0;
-                                            l_limitPitch = 0.0;
-                                            r_limitPitch = 0.0;
-                                        }
-                                         
-                                    }
-                                } 
-                                /* -------------------------------------------------
-                                * INFLUENCE INVOLVES JUST THE HEAD
-                                * --------------------------------------------------*/
-                                } else {
-                                    // headkeyframe at time
-                                    HeadKeyframe hkf = getHeadKeyframeAtTime(time, outputKeyframe, hkfg, start, end);
-                                    double head_ang_yaw = hkf.verticalTorsion.value; 
-                                    double head_ang_pitch = hkf.sagittalTilt.value; 
-                                    
-                                    // if the eyes reach the target
-                                    if (lastEyeAngle_l == 0.0 && lastEyeAngle_r == 0.0){ 
-                                        // eliminate the addition rotation due to the head movement
-                                        l_limitYaw = head_ang_yaw;
-                                        r_limitYaw = head_ang_yaw;
-                                        l_limitPitch = head_ang_pitch;
-                                        r_limitPitch = head_ang_pitch;
-                                        
-                                        lastEyeAngle_l = 0.0;
-                                        lastEyeAngle_r = 0.0;                                       
-                                    } else { // the eyes don't reach the target
-                                        // calculate the eyes position at the time 
-                                        l_limitYaw = (timeBackEyesAtZero - time)*maxVel_eyes;
-                                        r_limitYaw = (timeBackEyesAtZero - time)*maxVel_eyes;
-                                        l_limitPitch = (timeBackEyesAtZero - time)*maxVel_eyes_pitch;
-                                        r_limitPitch = (timeBackEyesAtZero - time)*maxVel_eyes_pitch;
-                                        
-                                        // eyes position not considering the movement of the head
-                                        lastEyeAngle_l = l_limitYaw;
-                                        lastEyeAngle_r = r_limitYaw;
-
-                                        // eliminate the addition rotation due to the head movement
-                                        l_limitYaw = (l_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                        r_limitYaw = (r_limitYaw*EYES_YAW_LIMIT - head_ang_yaw*HEAD_YAW_LIMIT)/EYES_YAW_LIMIT;
-                                
-                                    }
-                                }
+                                    }  
                         }
                         
                         // add eyeskeyframe
@@ -1086,27 +658,6 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                         latestTime = time;                        
                     }
                 }
-            }
-            
-            
-            
-            // if the headkeyframe at time is already exixtent, adjust the rotatio value
-            
-            for (double d : TimeHeadAngle.keySet()){
-                int i = 0;
-                for (Keyframe kg :outputKeyframe){
-                    if (kg instanceof HeadKeyframe){
-                        if (kg.getOffset() == d){
-                            HeadKeyframe hkf = (HeadKeyframe) outputKeyframe.get(i);
-                            hkf.verticalTorsion.value = TimeHeadAngle.get(d);
-                            outputKeyframe.remove(i);
-                            outputKeyframe.add(hkf);
-                            break;
-                        }
-                    }
-                    i += 1;
-                }
-            }
 
             // Add gazekeyframe for the end of the gaze
             if(!gaze.isGazeShift())
@@ -1115,14 +666,6 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                 addEyesAUFeyFrame(outputKeyframe, gazeId + "_back", "end", end, Side.RIGHT, GazeDirection.FRONT, 0.0, 0.0); //TODO: use shifts
             }
 
-            /*if (gaze.getInfluence().ordinal() >= Influence.SHOULDER.ordinal()) {
-
-            if (gaze.getInfluence().ordinal() >= Influence.TORSO.ordinal()) {
-
-            if (inf.ordinal() >= Influence.WHOLE.ordinal()) {
-             }
-             }
-             }*/
         }
 
         signals.clear();
@@ -2060,6 +1603,23 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                     || (h_pitchAngle <= 0.0 && Math.abs(h_pitchAngle) < HEAD_PITCH_LIMIT_DOWN + EYES_PITCH_LIMIT))) {
                 withinHeadLimit = true;
             }
+            
+            
+            /*double ang = Math.abs(h_yawAngle) - 0.261799; // 15°
+            if (ang > Math.PI/2 + 0.261799){ // 90°
+                h_limitedYaw = 1.0;
+                r_limitedYaw = (Math.abs(r_yawAngle) - h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT;
+                l_limitedYaw = (Math.abs(l_yawAngle) - h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT;
+                
+                if (r_limitedYaw > 1.0 || l_limitedYaw > 1.0){
+                    r_limitedYaw = 1.0;
+                    l_limitedYaw = 1.0;
+                }
+            } else {
+                h_limitedYaw = ang / HEAD_YAW_LIMIT;
+                r_limitedYaw = (Math.abs(r_yawAngle) - h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT;
+                l_limitedYaw = (Math.abs(l_yawAngle) - h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT;
+            }*/ 
             h_limitedYaw = Math.signum(h_yawAngle) * Math.min(Math.abs(h_yawAngle), HEAD_YAW_LIMIT) / HEAD_YAW_LIMIT;
             //h_limitedPitch = Math.signum(h_pitchAngle) * Math.min(Math.abs(h_pitchAngle), HEAD_YAW_LIMIT) / HEAD_YAW_LIMIT;;
             if (h_pitchAngle >= 0.0872665) { // 5°
@@ -2136,6 +1696,7 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                 }*/
                 
                 Node targetNode = null;
+                Vec3d sizeTarget = null;
                 String id_target = "";
                 
                 if (target != null && !target.isEmpty()) {
@@ -2146,12 +1707,12 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                         boolean test = check.getIdentifier().equals(target);
                         // once find the object, take the ID
                         if (test){
-                            id_target = check.getIdentifier(); // TODO not ever the leaf_id is the same of node_id
+                            id_target = check.getIdentifier();
+                            sizeTarget = check.getSize();
                             break;
                         }
                     }
                     targetNode = env.getNode(id_target);
-                    //System.out.println(targetNode.getIdentifier());
                 }
                 
                 Vec3d headPosition = new Vec3d(Double.parseDouble(IniManager.CurrentPosition.get(10).getParamValue()),
@@ -2169,7 +1730,9 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                             targetNode = targetNode.getParent();
                         }
                         vec2target = ((TreeNode) targetNode).getGlobalCoordinates();
+                        vec2target.setY(sizeTarget.y()/2); // take the center of the Target long y axis
                     }
+                    
                     Quaternion orient = new Quaternion(Double.parseDouble(IniManager.CurrentPosition.get(0).getParamValue()),
                                                         Double.parseDouble(IniManager.CurrentPosition.get(1).getParamValue()),
                                                         Double.parseDouble(IniManager.CurrentPosition.get(2).getParamValue()),
@@ -2287,36 +1850,72 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
 
         public boolean limitShouldersAngle() {
             //shoulders limit angle
-            if (Math.abs(sh_yawAngle) <= TORSO_YAW_LIMIT  + HEAD_YAW_LIMIT ) {/*
+            if (Math.abs(sh_yawAngle) <= TORSO_YAW_LIMIT + HEAD_YAW_LIMIT) {/*
                     && ((sh_pitchAngle >= 0.0 && Math.abs(sh_pitchAngle) < HEAD_PITCH_LIMIT_UP + EYES_PITCH_LIMIT)
                     || (sh_pitchAngle <= 0.0 && Math.abs(sh_pitchAngle) < HEAD_PITCH_LIMIT_DOWN + EYES_PITCH_LIMIT))) {*/
                 withinShoulderLimit = true;
             }
-            
+
              // N.B. --> limited angles for the eyes have to be positive for both rotation direction 
             if (Math.abs(sh_yawAngle) > Math.toRadians(135)){ // withinShoulderLimit = false
                 sh_limitedYaw = Math.signum(sh_yawAngle) * 1.0; //  
                 ha.h_limitedYaw = 1.0; // Math.signum(ha.r_yawAngle) * 
-                ha.r_limitedYaw = Math.min(Math.abs(ha.r_yawAngle), EYES_YAW_LIMIT) / EYES_YAW_LIMIT; // Math.signum(ha.r_yawAngle) * 
-                ha.l_limitedYaw = Math.min(Math.abs(ha.l_yawAngle), EYES_YAW_LIMIT) / EYES_YAW_LIMIT; // Math.signum(ha.l_yawAngle) * 
-            } /*else if (Math.abs(sh_yawAngle) > Math.toRadians(90)){ // withinShoulderLimit = true
-                sh_limitedYaw = 1.0;
-                ha.h_limitedYaw = 1.0;
-                ha.r_limitedYaw = (Math.abs(sh_yawAngle) - TORSO_YAW_LIMIT)/EYES_YAW_LIMIT;
-                ha.l_limitedYaw = (Math.abs(sh_yawAngle) - TORSO_YAW_LIMIT)/EYES_YAW_LIMIT;
-            } */else if (Math.abs(sh_yawAngle) > Math.toRadians(45)){
-                sh_limitedYaw = Math.signum(sh_yawAngle) * 1.0; // 
-                ha.h_limitedYaw = Math.min(Math.abs(ha.h_yawAngle), HEAD_YAW_LIMIT) / HEAD_YAW_LIMIT; // Math.signum(ha.h_yawAngle) * 
-                ha.r_limitedYaw = Math.min(Math.abs(ha.r_yawAngle), EYES_YAW_LIMIT) / EYES_YAW_LIMIT; // Math.signum(ha.r_yawAngle) * 
-                ha.l_limitedYaw = Math.min(Math.abs(ha.l_yawAngle), EYES_YAW_LIMIT) / EYES_YAW_LIMIT; // Math.signum(ha.l_yawAngle) * 
-            } else if (Math.abs(sh_yawAngle) <= Math.toRadians(45)){
-                sh_limitedYaw = Math.signum(sh_yawAngle) * Math.abs(sh_yawAngle)/TORSO_YAW_LIMIT;
-                ha.h_limitedYaw = Math.min(Math.abs(ha.h_yawAngle), HEAD_YAW_LIMIT) / HEAD_YAW_LIMIT; // Math.signum(ha.h_yawAngle) * 
-                ha.r_limitedYaw = Math.min(Math.abs(ha.r_yawAngle), EYES_YAW_LIMIT) / EYES_YAW_LIMIT; // Math.signum(ha.r_yawAngle) * 
-                ha.l_limitedYaw = Math.min(Math.abs(ha.l_yawAngle), EYES_YAW_LIMIT) / EYES_YAW_LIMIT; // Math.signum(ha.l_yawAngle) * 
+                ha.r_limitedYaw = (Math.abs(ha.r_yawAngle) - Math.abs(sh_minimumAlign)*TORSO_YAW_LIMIT - ha.h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT; 
+                ha.l_limitedYaw = (Math.abs(ha.l_yawAngle) - Math.abs(sh_minimumAlign)*TORSO_YAW_LIMIT - ha.h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT;
+            }else {
+                double Sh_eye = Math.abs(sh_minimumAlign)*TORSO_YAW_LIMIT + 0.261799; // sum of shoulder angle and 15° (eyes minimum angle)
+                double ang = Math.abs(ha.h_yawAngle) - Sh_eye;
+                if (ang > Math.PI/2){ // 90°
+                    ha.h_limitedYaw = 1.0;
+                    ha.r_limitedYaw = (Math.abs(ha.r_yawAngle) - Math.abs(sh_minimumAlign)*TORSO_YAW_LIMIT - ha.h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT;
+                    ha.l_limitedYaw = (Math.abs(ha.l_yawAngle) - Math.abs(sh_minimumAlign)*TORSO_YAW_LIMIT - ha.h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT;
+                } else {
+                    ha.h_limitedYaw = ang / HEAD_YAW_LIMIT;
+                    ha.r_limitedYaw = (Math.abs(ha.r_yawAngle) - Math.abs(sh_minimumAlign)*TORSO_YAW_LIMIT - ha.h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT;
+                    ha.l_limitedYaw = (Math.abs(ha.l_yawAngle) - Math.abs(sh_minimumAlign)*TORSO_YAW_LIMIT - ha.h_limitedYaw*HEAD_YAW_LIMIT) / EYES_YAW_LIMIT;
+                }    
+                /*double tot = ha.h_limitedYaw*HEAD_YAW_LIMIT + sh_minimumAlign*TORSO_YAW_LIMIT + ha.r_limitedYaw*EYES_YAW_LIMIT ;
+                System.out.println(tot);*/
             }
-    
-            //sh_limitedYaw = Math.signum(sh_yawAngle) * Math.min(Math.abs(sh_yawAngle), TORSO_YAW_LIMIT) / TORSO_YAW_LIMIT;
+            
+            
+            // PITCH ANGLE
+            if (Math.abs(ha.h_pitchAngle) > HEAD_PITCH_LIMIT_UP || Math.abs(ha.h_pitchAngle) > HEAD_PITCH_LIMIT_DOWN){
+                double ang = Math.abs(ha.h_pitchAngle) - 0.174533; // 10°
+                
+                if (ang >HEAD_PITCH_LIMIT_UP || ang > HEAD_PITCH_LIMIT_DOWN){
+                    ha.h_limitedPitch = 1.0;
+                    if (ha.h_pitchAngle > 0.0){
+                        ha.r_pitchAngle = (Math.abs(ha.r_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_UP) / EYES_PITCH_LIMIT;
+                        ha.l_pitchAngle = (Math.abs(ha.l_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_UP) / EYES_PITCH_LIMIT;
+                    }else {
+                        ha.r_pitchAngle = (Math.abs(ha.r_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_DOWN) / EYES_PITCH_LIMIT;
+                        ha.l_pitchAngle = (Math.abs(ha.l_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_DOWN) / EYES_PITCH_LIMIT;
+                    }
+                }else {
+                    
+                    if (ha.h_pitchAngle > 0.0){
+                        ha.h_limitedPitch = ang/HEAD_PITCH_LIMIT_UP;
+                        ha.r_pitchAngle = (Math.abs(ha.r_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_UP) / EYES_PITCH_LIMIT;
+                        ha.l_pitchAngle = (Math.abs(ha.l_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_UP) / EYES_PITCH_LIMIT;
+                    }else {
+                        ha.h_limitedPitch = ang/HEAD_PITCH_LIMIT_DOWN;
+                        ha.r_pitchAngle = (Math.abs(ha.r_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_DOWN) / EYES_PITCH_LIMIT;
+                        ha.l_pitchAngle = (Math.abs(ha.l_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_DOWN) / EYES_PITCH_LIMIT;
+                    }
+                }         
+            }else {    
+                if (ha.h_pitchAngle > 0.0){
+                    ha.h_limitedPitch =  (Math.abs(ha.h_pitchAngle) - 0.174533)/HEAD_PITCH_LIMIT_UP;
+                    ha.r_pitchAngle = (Math.abs(ha.r_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_UP) / EYES_PITCH_LIMIT;
+                    ha.l_pitchAngle = (Math.abs(ha.l_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_UP) / EYES_PITCH_LIMIT;
+                }else {
+                    ha.h_limitedPitch =  (Math.abs(ha.h_pitchAngle) - 0.174533)/HEAD_PITCH_LIMIT_DOWN;
+                    ha.r_pitchAngle = (Math.abs(ha.r_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_DOWN) / EYES_PITCH_LIMIT;
+                    ha.l_pitchAngle = (Math.abs(ha.l_pitchAngle) - ha.h_limitedPitch*HEAD_PITCH_LIMIT_DOWN) / EYES_PITCH_LIMIT;
+                }
+            }
+          
             sh_limitedPitch = sh_pitchAngle;
             
             return withinShoulderLimit;
@@ -2343,6 +1942,7 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
             //can compute angles to target only if we have an environment
             if (env != null) {
                 
+                Vec3d sizeTarget = null;
                 Node targetNode = null;
                 String id_target = "";
                 
@@ -2355,6 +1955,8 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                         // once find the object, take the ID
                         if (test){
                             id_target = check.getIdentifier(); // TODO not ever the leaf_id is the same of node_id
+                            sizeTarget = check.getSize();
+                            
                             break;
                         }
                     }
@@ -2376,6 +1978,7 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
                                         targetNode = targetNode.getParent();
                                 }
                                 vec2target = ((TreeNode) targetNode).getGlobalCoordinates(); // target position
+                                vec2target.setY(sizeTarget.y()/2); // take the center of the Target long y axis
                         }
 
                         // orientation body from MPEG4
@@ -2446,29 +2049,28 @@ public class GazeKeyframeGenerator extends KeyframeGenerator implements Environm
             this.ha.l_GazeDirection = computeGazeDirection(this.ha.l_yawAngle, this.ha.l_pitchAngle);
             this.ha.r_GazeDirection = computeGazeDirection(this.ha.r_yawAngle, this.ha.r_pitchAngle);
 
-            //this.ha.withinHeadLimit = this.ha.limitHeadAngle();
-            //this.ha.withinEyesLimit = this.ha.limitEyesAngles();
-            this.withinShoulderLimit = this.limitShouldersAngle();
-            
-            
             /**
             * for the coordination eyes-head-torso it is followed the paper: 
             * "Gaze and Attention Management for Embodied Conversational Agents"
             * Authors: Pejsa T Andrist S Gleicher M Mutlu B
             **/
-            if (Math.abs(sh_limitedYaw) < 0.349066 ){ // 20°
+            if (Math.abs(Math.max(this.ha.l_yawAngle, this.ha.r_yawAngle)) < 0.349066 ){ // 20°
                     sh_minimumAlign = 0.0;									
-            }else if (Math.abs(sh_limitedYaw) < 0.698132 &&  Math.abs(sh_limitedYaw) >= 0.349066){ //  20° =< angle < 40°
-                    sh_minimumAlign = Math.toRadians(0.8*Math.toDegrees(sh_limitedYaw*TORSO_YAW_LIMIT) - 1.45); 
-            }else if (Math.abs(sh_limitedYaw) >= 0.698132){ //  angle => 40°
-                    sh_minimumAlign = Math.toRadians(0.43*Math.exp(0.03*Math.toDegrees(sh_limitedYaw)) + 0.19); // *TORSO_YAW_LIMIT
+            }else if (Math.abs(Math.max(this.ha.l_yawAngle, this.ha.r_yawAngle)) < 0.698132 &&  Math.abs(Math.max(this.ha.l_yawAngle, this.ha.r_yawAngle)) >= 0.349066){ //  20° =< angle < 40°
+                    sh_minimumAlign = Math.toRadians(0.8*Math.toDegrees(sh_limitedYaw*TORSO_YAW_LIMIT) - 1.45)/TORSO_YAW_LIMIT; 
+            }else if (Math.abs(Math.max(this.ha.l_yawAngle, this.ha.r_yawAngle)) >= 0.698132){ //  angle => 40°
+                    sh_minimumAlign = Math.signum(this.ha.l_yawAngle)*Math.toRadians(0.43*Math.exp(0.03*Math.abs(Math.toDegrees(Math.max(this.ha.l_yawAngle, this.ha.r_yawAngle)))) + 0.19)/TORSO_YAW_LIMIT; // *TORSO_YAW_LIMIT
+                    if (Math.abs(sh_minimumAlign*TORSO_YAW_LIMIT) > TORSO_YAW_LIMIT){
+                        sh_minimumAlign =  Math.signum(this.ha.l_yawAngle)*1.0;
+                    }
             }
             
+            this.withinShoulderLimit = this.limitShouldersAngle();
+             
             // shoulders latency
             // latency = 0.25*eyesrotation + 47.5  ---> questo é un valore in ms
             // latency = latency/1000 ---> valore in sec
             sh_latency = (0.25*Math.toDegrees(Math.max(Math.max(this.ha.l_limitedYaw*EYES_YAW_LIMIT, this.ha.r_limitedYaw*EYES_YAW_LIMIT), Math.max(this.ha.l_limitedPitch*EYES_PITCH_LIMIT, this.ha.r_limitedPitch*EYES_PITCH_LIMIT))) + 47.5)/1000;
-            //sh_latency = 0.25;
         }
     }
 

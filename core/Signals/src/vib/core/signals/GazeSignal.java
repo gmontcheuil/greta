@@ -134,7 +134,7 @@ public class GazeSignal extends ParametricSignal implements SignalTargetable{
                 return ;
             }
             //TODO : change depending on influence ?
-            if(influence==Influence.EYES || influence == Influence.HEAD || influence == Influence.SHOULDER || influence == Influence.TORSO ) {
+            /*if(influence==Influence.EYES || influence == Influence.HEAD || influence == Influence.SHOULDER || influence == Influence.TORSO ) {*/
                 if(!ready.isConcretized() && !relax.isConcretized())
                 {
                     double totalTime = this.end.getValue() - this.start.getValue();
@@ -150,11 +150,11 @@ public class GazeSignal extends ParametricSignal implements SignalTargetable{
                     ready.setValue(start.getValue()+(relax.getValue()-start.getValue())/2);
                 }
             isScheduled=true;
-            }
+            /*}
             else
             {
                 //TODO unimplemented yet
-            }
+            }*/
         }
         else
         {
@@ -274,8 +274,11 @@ public class GazeSignal extends ParametricSignal implements SignalTargetable{
             else
             {
                 //unrecognized influence : should throw exception !
+                // Default null. the influence will be calculated in gazekeyframeGenerator class automaticaly,
+                // according to the rotation anlge to reaéch the target object
+                setInfluence(null); //
                 //default : eyes
-                setInfluence(Influence.EYES);
+                //setInfluence(Influence.EYES);
             }
         }
         //offset
