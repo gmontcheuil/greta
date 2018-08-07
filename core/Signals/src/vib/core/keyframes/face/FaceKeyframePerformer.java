@@ -26,6 +26,7 @@ import vib.core.repositories.AUAPFrame;
 import vib.core.util.Constants;
 import vib.core.util.Mode;
 import vib.core.util.enums.CompositionType;
+import vib.core.util.enums.Side;
 import vib.core.util.id.ID;
 import vib.core.util.id.IDProvider;
 import vib.core.util.math.Functions;

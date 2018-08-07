@@ -21,6 +21,8 @@ import vib.core.keyframes.Keyframe;
 import vib.core.keyframes.KeyframeEmitter;
 import vib.core.keyframes.KeyframePerformer;
 import vib.core.keyframes.PhonemSequence;
+/*import vib.core.keyframes.face.AUKeyFrame;
+import vib.core.repositories.AUAPFrame;*/
 import vib.core.repositories.SignalFiller;
 import vib.core.signals.Signal;
 import vib.core.signals.SignalPerformer;
@@ -186,6 +188,12 @@ public class Realizer extends CallbackSender implements SignalPerformer, Keyfram
             }
         }
 
+        /*for (Keyframe kg : keyframes){
+            if (kg instanceof AUKeyFrame){
+                AUAPFrame auFrame = ((AUKeyFrame)kg).getAus();
+                System.out.println(auFrame.getAUAPList() + "  time: " + kg.getOffset());
+            }
+        }*/
         this.sendKeyframes(keyframes, requestId, mode);
         // Add animation to callbacks
         if(mode.getCompositionType() == CompositionType.replace){

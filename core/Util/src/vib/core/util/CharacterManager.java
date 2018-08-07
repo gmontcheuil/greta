@@ -5,6 +5,7 @@ package vib.core.util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,10 @@ public class CharacterManager {
 
     public static String currentCharacterId; //TODO find a better way to give the id from the environment
     public static String currentCameraId;
+    
+    // Hashmap to store for each agent the current position of each body part
+    public static  HashMap<String,List<IniParameter>> CurrentPosition = new HashMap<String,List<IniParameter>>();  
+    //public static List<IniParameter> CurrentPosition = Arrays.asList(new IniParameter[13]);
 
     static {
         dependents = new ArrayList<CharacterDependent>();

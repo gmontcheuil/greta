@@ -44,9 +44,6 @@ public class IniManager extends ParameterSet<IniParameter> {
 
     private static double javaVersion;
 
-    // ToDo: use a hasmap instead a list
-    public static List<IniParameter> CurrentPosition = Arrays.asList(new IniParameter[13]);
-
     static {
         programPath = System.getProperty("user.dir");
 
